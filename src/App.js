@@ -6,6 +6,9 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Dashboard from "./scenes/dashboard/dashboard";
 import Login from "./scenes/login/login";
+import UserList from "./scenes/users/UserList";
+import AddUser from "./scenes/users/AddUser";
+import EditUser from "./scenes/users/EditUser";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,7 +36,9 @@ function App() {
               {/* Authenticated Route -> Redirects user to landing page IF they are authenticated*/}
               <Route path="/" element={<Login/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
-
+                <Route path="/list" element={<UserList/>} />
+                <Route path="add" element={<AddUser/>} />
+                <Route path="edit/:id" element={<EditUser/>} />
             </Routes>
           </main>
         </div>

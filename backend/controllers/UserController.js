@@ -2,6 +2,7 @@ import User from "../models/UserModel.js";
 
 export const getUsers = async(req, res) =>{
     console.log('getting users')
+    console.log('Account obj',User);
     try {
         const response = await User.findAll();
         res.status(200).json(response);
@@ -23,6 +24,7 @@ export const getUserById = async(req, res) =>{
     } catch (error) {
         console.log(error.message);
     }
+    
 }
 
 export const createUser = async(req, res) =>{
@@ -32,6 +34,7 @@ export const createUser = async(req, res) =>{
     } catch (error) {
         console.log(error.message);
     }
+    return "bye1"
 }
 
 export const updateUser = async(req, res) =>{

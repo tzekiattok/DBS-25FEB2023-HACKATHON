@@ -16,7 +16,7 @@ const AddUser = () => {
         name,
         email,
         gender,
-      });
+      }).then(response => console.log(response,"response..."))
       navigate("/list");
     } catch (error) {
       console.log(error);

@@ -3,7 +3,8 @@ import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
 
 
@@ -12,21 +13,57 @@ const Login = () => {
     //Set hooks for login:
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword,setLoginPassword] = useState("")
+    const [errorLogin, setErrorLogin] = useState("")
     //Set hooks for sign up:
     const [signUpEmail, setSignUpEmail] = useState("");
     const [signUpPassword,setSignUpPassword] = useState("")
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
+    //Other vars
+    const navigate = useNavigate();
+
     //Login function
-    const signIn =() =>{
+    const signIn =  async () =>{
+        
         console.log('email:',loginEmail)
         console.log('password:', loginPassword)
+        setErrorLogin("")
+        try {
+            console.log('start of try catch')
+            const response = await axios.post("http://localhost:5000/verifyAccount", {
+              email:loginEmail,
+              password:loginPassword
+            })
+            if(response.data===null){
+                console.log(response);
+                setErrorLogin('failed verification')
+            }
+            else
+            {
+                console.log(response);
+                console.log('successful verification')
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+    
+        
     }
     //Signup function
-    const signUp =() =>{
-        console.log('email:',signUpEmail)
-        console.log('password:', signUpPassword)
-        console.log('confirm password:', signUpConfirmPassword)
+    const signUp = async () =>{
+        try {
+            console.log('email:',signUpEmail)
+            console.log('password:', signUpPassword)
+            console.log('confirm password:', signUpConfirmPassword)
+            const response = await axios.post("http://localhost:5000/createAccount", {
+              email:signUpEmail,
+              password:signUpPassword
+            });
+            navigate("/");
+          } catch (error) {
+            console.log(error);
+          }
     }
     return (
     <Box m="20px" className="Login template">
@@ -117,8 +154,9 @@ const Login = () => {
                         Appname
                     </div>
                     <div className="login__login-container__main-container">
-                
+                                
                         <span className="login__login-container__main-container--info-text">or use email for your login</span>
+                        <span className = 'error_login'>{errorLogin}</span>
                         <div className="login__login-container__main-container__form-container">
                             <form className="login__login-container__main-container__form-container__form" onSubmit={(e) => {
                                 e.preventDefault();

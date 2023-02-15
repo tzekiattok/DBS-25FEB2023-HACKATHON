@@ -11,6 +11,7 @@ const User = db.define('users',{
     gender: DataTypes.STRING
 },{
     freezeTableName:true
+    
 });
 
 export default User;

@@ -22,13 +22,14 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
+DROP TABLE IF EXISTS `accounts`;
+DROP TABLE IF EXISTS `users`;
 --
 -- Table structure for table `users`
 --
 
 CREATE TABLE `accounts` (
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT  NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

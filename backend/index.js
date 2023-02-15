@@ -1,7 +1,11 @@
 import express from "express";
 import cors from "cors";
 import UserRoute from "./routes/UserRoute.js";
-//commands to run
+//COMMANDS TO RUN - IF YOU ALREADY SET UP
+//1. cd backend
+//5. nodemon index
+
+//COMMANDS TO RUN - FIRST TIME
 //1. cd backend
 //2. npm init -y
 //3. npm install express mysql2 sequelize cors

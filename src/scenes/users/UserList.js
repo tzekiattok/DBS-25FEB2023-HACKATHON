@@ -5,6 +5,7 @@ import "bulma/css/bulma.css";
 
 const UserList = () => {
   const [users, setUser] = useState([]);
+  const [email, setEmail] = useState('toktzekiat@gmail.com')
 
   useEffect(() => {
     getUsers();
@@ -24,11 +25,28 @@ const UserList = () => {
     }
   };
 
+  const testInnerJoin = async () =>{
+    try {
+      const response = await axios.post(`http://localhost:5000/testInnerJoin`, {
+        email,
+      });
+      console.log('response --> ', response.data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
+      <button
+                    onClick={() => testInnerJoin()}
+                    className="button is-small is-danger"
+                  >
+                    testInnerJoin
+      </button>
         <Link to={`/add`} className="button is-success">
-          Add New
+          View
         </Link>
         <table className="table is-striped is-fullwidth">
           <thead>

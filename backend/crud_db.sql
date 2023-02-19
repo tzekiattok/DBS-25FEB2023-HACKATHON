@@ -24,6 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `accounts`;
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `data`;
 --
 -- Table structure for table `users`
 --
@@ -33,6 +34,11 @@ CREATE TABLE `accounts` (
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `data` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `item` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -49,11 +55,17 @@ CREATE TABLE `users` (
 INSERT INTO `accounts` ( `email`, `password`) VALUES
 ('toktzekiat@gmail.com', 'dog123!');
 
+INSERT INTO `data` ( `id`, `name`, `item`) VALUES
+(1,'toktzekiat', 'test item 1'),
+(2,'toktzekiat', 'test item 2'),
+(3,'toktzekiat', 'test item 3');
+
 INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`) VALUES
 (3, 'John Doe', 'john@gmail.com', 'Male', '2022-03-29 03:23:37', '2022-03-29 03:23:37'),
 (5, 'M Fikri', 'mfikri@gmail.com', 'Male', '2022-04-05 15:46:30', '2022-04-05 15:46:30'),
 (6, 'Dhea', 'dhea@gmail.com', 'Female', '2022-04-05 15:46:46', '2022-04-05 15:46:46'),
-(9, 'Laura Updated', 'laura@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06');
+(9, 'Laura Updated', 'laura@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06'),
+(10, 'toktzekiat', 'toktzekiat@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06');
 
 --
 -- Indexes for dumped tables
@@ -63,6 +75,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`) 
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `data`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `accounts`
@@ -75,6 +90,8 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `data`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 

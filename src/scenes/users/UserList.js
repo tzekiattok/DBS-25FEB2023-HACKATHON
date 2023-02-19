@@ -30,7 +30,17 @@ const UserList = () => {
       const response = await axios.post(`http://localhost:5000/testInnerJoin`, {
         email,
       });
-      console.log('response --> ', response.data)
+      console.log('response --> ', response.data[0])
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const testInnerJoin2 = async () =>{
+    console.log('trying');
+    try {
+      const response = await axios.get("http://localhost:5001/getAccounts");
+      console.log('response --> ', response);
     } catch (error) {
       console.log(error);
     }
@@ -44,6 +54,12 @@ const UserList = () => {
                     className="button is-small is-danger"
                   >
                     testInnerJoin
+      </button>
+      <button
+                    onClick={() => testInnerJoin2()}
+                    className="button is-small is-danger"
+                  >
+                    testInnerJoin2
       </button>
         <Link to={`/add`} className="button is-success">
           View

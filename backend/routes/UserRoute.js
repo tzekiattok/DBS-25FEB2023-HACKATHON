@@ -10,7 +10,8 @@ import {
     getAccounts,
     verifyAccount,
     createAccount,
-    innerJoinTest
+    innerJoinTest,
+    innerJoinTest2
 }from "../controllers/AccountController.js";
 
 const router = express.Router();
@@ -27,4 +28,5 @@ router.get('/listAccount',getAccounts);
 router.post('/verifyAccount', verifyAccount);
 router.post('/createAccount', createAccount);
 router.post('/testInnerJoin', innerJoinTest)
+router.post('/testInnerJoin2', innerJoinTest2)
 export default router;

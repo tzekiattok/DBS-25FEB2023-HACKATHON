@@ -1,7 +1,7 @@
 import { useRowSelect } from "react-table"
 import Account from "../models/AccountModel.js"
 import User from "../models/UserModel.js"
-
+import Data from "../models/DataModel.js"
 
 export const innerJoinTest = async (req, res) => {
     Account.hasMany(User, { foreignKey: "email" })
@@ -28,6 +28,35 @@ export const innerJoinTest = async (req, res) => {
 
 }
 
+//TripleInnerJoin
+export const innerJoinTest2 = async (req, res) => {
+    Account.hasMany(User, { foreignKey: "email" })
+    User.belongsTo(Account, { foreignKey: "email" })
+    Data.belongsToMany(User,{ foreignKey: "name" })
+    try {
+        const response = await User.findAll({
+            where: {
+                   email: req.body.email,
+            },
+            include: [
+                {
+                    model: Account,
+                    required: true,
+                    include: [{
+                        model: Data,
+                        required: true,
+                    }]
+                }
+            ]
+        })
+        console.log(response);
+        res.status(200).json(response);
+    } catch (error) {
+        console.log('failed')
+        console.log(error.message);
+    }
+
+}
 export const getAccounts = async (req, res) => {
     console.log('GETTING ACCOUNTS.....')
     console.log('Account obj', Account);

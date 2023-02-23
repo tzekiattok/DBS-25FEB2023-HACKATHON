@@ -1,0 +1,52 @@
+DROP TABLE IF EXISTS `accounts`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `data`;
+DROP TABLE IF EXISTS `dashboard`;
+--
+-- Table structure for table `users`
+--
+@ -34,6 +35,14 @@ CREATE TABLE `accounts` (
+  `password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `dashboard` (
+  `email` varchar(255) NOT  NULL,
+  `item1` FLOAT DEFAULT NULL,
+  `item2` FLOAT DEFAULT NULL,
+  `item3` FLOAT DEFAULT NULL,
+  `item4` FLOAT DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `data` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+@ -67,6 +76,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`)
+(9, 'Laura Updated', 'laura@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06'),
+(10, 'toktzekiat', 'toktzekiat@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06');
+
+
+INSERT INTO `dashboard` (`email`, `item1`,`item2`,`item3`,`item4`) VALUES
+('john@gmail.com', 123456, 443128, 1238888,477123);
+
+
+--
+-- Indexes for dumped tables
+--
+@ -82,6 +96,9 @@ ALTER TABLE `data`
+
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`email`);
+
+ALTER TABLE `dashboard`
+  ADD PRIMARY KEY (`email`);
+--
+-- AUTO_INCREMENT for dumped tables
+--
+@ -93,6 +110,7 @@ ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

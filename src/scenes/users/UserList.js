@@ -37,12 +37,10 @@ const UserList = () => {
   return (
     <Box m="20px" className = "chatbotBox">
     <Header title="Table" subtitle="Delete user" />
-    <div className="columns mt-5 is-centered">
-      <div className="column is-half">
-      
-        <Link to={`/add`} className="button is-success">
+    <Link to={`/add`} className="button is-success">
           Add
         </Link>
+    <div className="columns mt-5 is-centered">
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
@@ -85,7 +83,6 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-    </div>
     </Box>
   );
 };

@@ -74,10 +74,10 @@ const Login = () => {
           }
     }
     return (
-    <Box m="20px" className="Login template">
       <div className="login">
                 <div className={`login__colored-container ${thisState ? 'login__colored-container--left' : 'login__colored-container--right'}`}></div>
                 <div className={`login__welcome-back ${thisState ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
+                    
                     <div className="login__welcome-back__logo-container">
                         DBS hackathon app
                     </div>
@@ -97,9 +97,12 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
+                <div className="login__login-container__logo-container">
                 <div className={`login__create-container ${thisState ? 'login__create-container--active' : 'login__create-container--inactive'}`}>
-                    Create Account
-                    
+                <div className = "login__login-container__box">
+                <div className="login__login-container__box__logo-container">
+                        Create Account
+                    </div>
                     <span className="login__create-container--info-text">or use email for your registration</span>
                     <span className = 'error_login'>{errorSignUp}</span>
                     <div className="login__create-container__form-container">
@@ -108,11 +111,11 @@ const Login = () => {
                             e.preventDefault();
                             signUp();
                         }}>
+                          
                             <input
                                 className="login__create-container__form-container__form--name"
                                 type="text"
                                 placeholder="Name"
-                           
                                 onChange = {(event)=> setSignUpEmail(event.target.value)}
                                 /*value={this.state.signUpForm.name}
                                 onChange={(value) => this.setState({
@@ -157,14 +160,16 @@ const Login = () => {
                                 Sign Up
                             </button>
                         </form>
+                        </div>
+                        </div>
                     </div>
                 </div>
                 <div className={`login__login-container ${!thisState? 'login__login-container--active' : 'login__login-container--inactive'}`}>
-                    <div className="login__login-container__logo-container">
+                    <div className = "login__login-container__box">
+                    <div className="login__login-container__box__logo-container">
                         DBS app
                     </div>
                     <div className="login__login-container__main-container">
-                                
                         <span className="login__login-container__main-container--info-text">or use email for your login</span>
                         <span className = 'error_login'>{errorLogin}</span>
                         <div className="login__login-container__main-container__form-container">
@@ -206,6 +211,7 @@ const Login = () => {
                             </form>
                         </div>
                     </div>
+                    </div>
                 </div>
                 <div className={`login__hello-container ${!thisState ? 'login__hello-container--active' : 'login__hello-container--inactive'}`}>
                     <div className="login__welcome-back__main-container__text-container">
@@ -224,7 +230,6 @@ const Login = () => {
                 </div>
             </div>
 
-    </Box>
 
 
 

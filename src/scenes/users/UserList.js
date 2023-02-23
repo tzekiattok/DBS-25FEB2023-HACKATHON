@@ -2,23 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 const UserList = () => {
   const [users, setUser] = useState([]);
-  const [email, setEmail] = useState('toktzekiat@gmail.com')
+  const [email, setEmail] = useState([])
 
   useEffect(() => {
+    setEmail(reactLocalStorage.getObject('user').email);
     getUsers();
   }, []);
 
   const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/users");
+    const response = await axios.get("http://localhost:5001/listUsers");
     setUser(response.data);
   };
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await axios.post(`http://localhost:5001/deleteUsers`,{
+        id
+      });
       getUsers();
     } catch (error) {
       console.log(error);

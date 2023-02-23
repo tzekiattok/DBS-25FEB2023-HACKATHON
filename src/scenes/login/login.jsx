@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 
 const Login = () => {
@@ -42,7 +43,9 @@ const Login = () => {
             else
             {
                 console.log(response);
-                console.log('successful verification')
+                console.log('successful verification');
+                reactLocalStorage.setObject('user', {'id': loginEmail});
+                navigate("/list");
             }
           } catch (error) {
             console.log(error);

@@ -67,7 +67,7 @@ app.post("/verifyAccount",(req,res)=>{
         }
     })
 })
-
+//Insert User
 app.post("/createAccount",(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
@@ -85,6 +85,74 @@ app.post("/createAccount",(req,res)=>{
         }
     })
 
+})
+
+//List users
+//Authenticate User login
+app.get("/listUsers",(req,res)=>{
+    console.log('getting all users')
+    const query = `SELECT * FROM users`
+    console.log('executing...',query)
+    db.query(query,(err, result)=>{
+        if (err) {
+            console.log(err);//DB error
+          } else {
+            if(result.length > 0){//ALWAYS check the length of the result, else it would show an exception error
+                console.log('result',result)
+                res.send(result);
+            }
+            else
+            {
+                console.log('No account found in DB')
+                res.send(result)
+            }
+        }
+    })
+})
+
+//User Delete
+app.post("/deleteUsers",(req,res)=>{
+    console.log('deleting users')
+    const id = req.body.id;
+    const query = `DELETE FROM users WHERE id = '${id}'`
+    console.log('executing...',query)
+    db.query(query,(err, result)=>{
+        if (err) {
+            console.log(err);//DB error
+          } else {
+            if(result.length > 0){//ALWAYS check the length of the result, else it would show an exception error
+                console.log('result',result)
+                res.send(result);
+            }
+            else
+            {
+                console.log('No account found in DB')
+                res.send(result)
+            }
+        }
+    })
+})
+
+app.post("/editUsers",(req,res)=>{
+    console.log('deleting users')
+    const id = req.body.id;
+    const query = `DELETE FROM users WHERE id = '${id}'`
+    console.log('executing...',query)
+    db.query(query,(err, result)=>{
+        if (err) {
+            console.log(err);//DB error
+          } else {
+            if(result.length > 0){//ALWAYS check the length of the result, else it would show an exception error
+                console.log('result',result)
+                res.send(result);
+            }
+            else
+            {
+                console.log('No account found in DB')
+                res.send(result)
+            }
+        }
+    })
 })
 
 //Backend Listens to port 5001, your axios calls should be localhost:5001

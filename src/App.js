@@ -22,8 +22,6 @@ function App() {
   //let hideSideBar = window.location.pathname === '/'  ? null : <Sidebar isSidebar={isSidebar} />
   
   return (
-    
-   
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />

@@ -9,6 +9,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { reactLocalStorage } from "reactjs-localstorage";
 import Iconify from './Icons';
+import "./dashboard.css"
 // sections
 import {
   AppTasks,
@@ -52,15 +53,17 @@ export default function DashboardAppPage() {
     <>
     <Box m="20px" >
         <title> Dashboard | Minimal UI </title>
+      
       <Container maxWidth="xl">
       <Header title="Dashboard" subtitle="something here" />
-        <Grid container spacing={3}>
+      <div className ="dashboard-bg">
+        <Grid container spacing={3} >
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Weekly Sales" total={data['item1']} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ic:baseline-account-balance-wallet'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
@@ -237,7 +240,9 @@ export default function DashboardAppPage() {
             />
           </Grid>
         </Grid>
+        </div>
       </Container>
+     
       </Box>
     </>
     

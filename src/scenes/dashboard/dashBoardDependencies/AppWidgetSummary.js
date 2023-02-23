@@ -4,8 +4,10 @@ import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../utils/formatNumber';
+
 // components
 import Iconify from '../Icons';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 // ----------------------------------------------------------------------
 
@@ -35,10 +37,11 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
     <Card
       sx={{
         py: 5,
-        boxShadow: 0,
+        boxShadow: 2,
         textAlign: 'center',
         color: (theme) => theme.palette[color].darker,
         bgcolor: (theme) => theme.palette[color].lighter,
+       
         ...sx,
       }}
       {...other}
@@ -55,6 +58,7 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
       >
         <Iconify icon={icon} width={24} height={24} />
       </StyledIcon>
+      
 
       <Typography variant="h3">{fShortenNumber(total)}</Typography>
 

@@ -18,7 +18,7 @@ const Login = () => {
     const [signUpEmail, setSignUpEmail] = useState("");
     const [signUpPassword,setSignUpPassword] = useState("")
     const [signUpConfirmPassword, setSignUpConfirmPassword] = useState("");
-
+    const [errorSignUp, setErrorSignUp] = useState("")
     //Other vars
     const navigate = useNavigate();
 
@@ -30,11 +30,12 @@ const Login = () => {
         setErrorLogin("")
         try {
             console.log('start of try catch')
-            const response = await axios.post("http://localhost:5000/verifyAccount", {
+            const response = await axios.post("http://localhost:5001/verifyAccount", {
               email:loginEmail,
               password:loginPassword
             })
-            if(response.data===null){
+            console.log('response,',response);
+            if(response.data.length === 0){
                 console.log(response);
                 setErrorLogin('failed verification')
             }
@@ -52,16 +53,20 @@ const Login = () => {
     }
     //Signup function
     const signUp = async () =>{
+        setErrorSignUp("");
         try {
             console.log('email:',signUpEmail)
             console.log('password:', signUpPassword)
             console.log('confirm password:', signUpConfirmPassword)
-            const response = await axios.post("http://localhost:5000/createAccount", {
+            const response = await axios.post("http://localhost:5001/createAccount", {
               email:signUpEmail,
               password:signUpPassword
             });
+            console.log('response,',response)
+            setErrorSignUp("Successfully registered");
             navigate("/");
           } catch (error) {
+            setErrorSignUp("email registered");
             console.log(error);
           }
     }
@@ -93,7 +98,9 @@ const Login = () => {
                     Create Account
                     
                     <span className="login__create-container--info-text">or use email for your registration</span>
+                    <span className = 'error_login'>{errorSignUp}</span>
                     <div className="login__create-container__form-container">
+                    
                         <form className="login__create-container__form-container__form" onSubmit={(e) => {
                             e.preventDefault();
                             signUp();

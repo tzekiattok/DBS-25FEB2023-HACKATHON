@@ -79,7 +79,7 @@ const Login = () => {
                 <div className={`login__colored-container ${thisState ? 'login__colored-container--left' : 'login__colored-container--right'}`}></div>
                 <div className={`login__welcome-back ${thisState ? 'login__welcome-back--active' : 'login__welcome-back--inactive'}`}>
                     <div className="login__welcome-back__logo-container">
-                        App Name
+                        DBS hackathon app
                     </div>
                     <div className="login__welcome-back__main-container">
                         <div className="login__welcome-back__main-container__text-container">
@@ -161,7 +161,7 @@ const Login = () => {
                 </div>
                 <div className={`login__login-container ${!thisState? 'login__login-container--active' : 'login__login-container--inactive'}`}>
                     <div className="login__login-container__logo-container">
-                        Appname
+                        DBS app
                     </div>
                     <div className="login__login-container__main-container">
                                 
@@ -210,10 +210,10 @@ const Login = () => {
                 <div className={`login__hello-container ${!thisState ? 'login__hello-container--active' : 'login__hello-container--inactive'}`}>
                     <div className="login__welcome-back__main-container__text-container">
                         <span className="login__welcome-back__main-container__text-container--title">
-                            Hello, stranger!
+                            Hello!
                             </span>
                         <span className="login__welcome-back__main-container__text-container--secondary">
-                            Enter your personal details and start your own portfolio!
+                            Enter your personal details to register
                         </span>
                     </div>
                     <div onClick={() => {

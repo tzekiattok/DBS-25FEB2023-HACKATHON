@@ -1,3 +1,28 @@
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 03, 2022 at 04:09 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `crud_db`
+--
+
+-- --------------------------------------------------------
 DROP TABLE IF EXISTS `accounts`;
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `data`;
@@ -5,7 +30,7 @@ DROP TABLE IF EXISTS `dashboard`;
 --
 -- Table structure for table `users`
 --
-@ -34,6 +35,14 @@ CREATE TABLE `accounts` (
+CREATE TABLE `accounts` (
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -20,7 +45,7 @@ CREATE TABLE `dashboard` (
 CREATE TABLE `data` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-@ -67,6 +76,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`)
+INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`)
 (9, 'Laura Updated', 'laura@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06'),
 (10, 'toktzekiat', 'toktzekiat@gmail.com', 'Female', '2022-06-03 02:01:55', '2022-06-03 02:07:06');
 
@@ -31,8 +56,7 @@ INSERT INTO `dashboard` (`email`, `item1`,`item2`,`item3`,`item4`) VALUES
 
 --
 -- Indexes for dumped tables
---
-@ -82,6 +96,9 @@ ALTER TABLE `data`
+ ALTER TABLE `data`
 
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`email`);
@@ -42,7 +66,7 @@ ALTER TABLE `dashboard`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-@ -93,6 +110,7 @@ ALTER TABLE `users`
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 ALTER TABLE `data`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;

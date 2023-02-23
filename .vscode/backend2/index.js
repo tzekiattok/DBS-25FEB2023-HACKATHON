@@ -133,10 +133,13 @@ app.post("/deleteUsers",(req,res)=>{
     })
 })
 
-app.post("/editUsers",(req,res)=>{
-    console.log('deleting users')
+app.patch("/editUsers",(req,res)=>{
+    console.log('updating users')
     const id = req.body.id;
-    const query = `DELETE FROM users WHERE id = '${id}'`
+    const name = req.body.name;
+    const email = req.body.email;
+    const gender = req.body.gender;
+    const query = `UPDATE users SET name ='${name}' , email ='${email}', gender ='${gender}'  WHERE id = '${id}'`
     console.log('executing...',query)
     db.query(query,(err, result)=>{
         if (err) {

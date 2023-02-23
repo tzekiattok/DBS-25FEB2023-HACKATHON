@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams , useLocation } from "react-router-dom";
 import "bulma/css/bulma.css";
+import { Box, Button, TextField } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Header from "../../components/Header";
 
 const EditUser = () => {
   const [name, setName] = useState("");
@@ -9,18 +12,23 @@ const EditUser = () => {
   const [gender, setGender] = useState("Male");
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const location = useLocation();
+  console.log('locate,',location)
   useEffect(() => {
     getUserById();
+    setName(location.state.username);
+    setEmail(location.state.useremail);
+    setGender(location.state.usergender);
   }, []);
 
   const updateUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:5000/users/${id}`, {
+      await axios.patch(`http://localhost:5001/editUsers`, {
+        id,
         name,
         email,
-        gender,
+        gender
       });
       navigate("/list");
     } catch (error) {
@@ -36,6 +44,8 @@ const EditUser = () => {
   };
 
   return (
+    <Box m="20px" className = "chatbotBox">
+    <Header title="Table" subtitle="Edit user....." />
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
         <form onSubmit={updateUser}>
@@ -85,6 +95,7 @@ const EditUser = () => {
         </form>
       </div>
     </div>
+    </Box>
   );
 };
 

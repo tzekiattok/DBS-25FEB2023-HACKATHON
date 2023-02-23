@@ -3,6 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { Box, Button, TextField } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Header from "../../components/Header";
 
 const UserList = () => {
   const [users, setUser] = useState([]);
@@ -29,44 +32,16 @@ const UserList = () => {
     }
   };
 
-  const testInnerJoin = async () =>{
-    try {
-      const response = await axios.post(`http://localhost:5000/testInnerJoin`, {
-        email,
-      });
-      console.log('response --> ', response.data[0])
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const testInnerJoin2 = async () =>{
-    console.log('trying');
-    try {
-      const response = await axios.get("http://localhost:5001/getAccounts");
-      console.log('response --> ', response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
+    <Box m="20px" className = "chatbotBox">
+    <Header title="Table" subtitle="Delete user" />
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
-      <button
-                    onClick={() => testInnerJoin()}
-                    className="button is-small is-danger"
-                  >
-                    testInnerJoin
-      </button>
-      <button
-                    onClick={() => testInnerJoin2()}
-                    className="button is-small is-danger"
-                  >
-                    testInnerJoin2
-      </button>
+      
         <Link to={`/add`} className="button is-success">
-          View
+          Add
         </Link>
         <table className="table is-striped is-fullwidth">
           <thead>
@@ -86,12 +61,18 @@ const UserList = () => {
                 <td>{user.email}</td>
                 <td>{user.gender}</td>
                 <td>
+                 
                   <Link
-                    to={`/edit/${user.id}`}
+                      to = {`/edit/${user.id}`}
+                      state= {{
+                        username: user.name,
+                        useremail: user.email,
+                        usergender: user.gender
+                      }
+                      }
+                    
                     className="button is-small is-info mr-2"
-                  >
-                    Edit
-                  </Link>
+                    >Edit</Link>
                   <button
                     onClick={() => deleteUser(user.id)}
                     className="button is-small is-danger"
@@ -105,6 +86,7 @@ const UserList = () => {
         </table>
       </div>
     </div>
+    </Box>
   );
 };
 

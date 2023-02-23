@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, TextField } from "@mui/material";
 import "bulma/css/bulma.css";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Header from "../../components/Header";
 
 const AddUser = () => {
   const [name, setName] = useState("");
@@ -24,6 +27,8 @@ const AddUser = () => {
   };
 
   return (
+    <Box m="20px" className = "chatbotBox">
+    <Header title="Table" subtitle="Add users....." />
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
         <form onSubmit={saveUser}>
@@ -73,6 +78,7 @@ const AddUser = () => {
         </form>
       </div>
     </div>
+    </Box>
   );
 };
 

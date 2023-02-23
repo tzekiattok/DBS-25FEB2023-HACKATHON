@@ -8,6 +8,7 @@ import Dashboard from "./scenes/dashboard/dashboard";
 import Login from "./scenes/login/login";
 import UserList from "./scenes/users/UserList";
 import AddUser from "./scenes/users/AddUser";
+import DashboardAppPage from "./scenes/dashboard/DashboardAppPage";
 import EditUser from "./scenes/users/EditUser";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               {/* Authenticated Route -> Redirects user to landing page IF they are authenticated*/}
               <Route path="/" element={<Login/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
+                <Route path="/dashboard1" element={<DashboardAppPage/>} />
                 <Route path="/list" element={<UserList/>} />
                 <Route path="add" element={<AddUser/>} />
                 <Route path="edit/:id" element={<EditUser/>} />

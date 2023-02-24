@@ -4,11 +4,6 @@ const cors = require("cors");
 const mysql = require("mysql");
 //import UserRoute from "./routes/UserRoute.js";
 
-//COMMANDS TO RUN - IF YOU ALREADY SET UP
-//New terminal
-//1. cd backend
-//2. nodemon index
-
 //COMMANDS TO RUN BACKEND - FIRST TIME EXECUTING THIS APP ON YOUR LAPTOP
 //New terminal
 //1. cd backend
@@ -19,12 +14,19 @@ const mysql = require("mysql");
 //5. cd backend
 //5. nodemon index --> 'Server up and running... on port 5001' if successful
 
-
 //COMMANDS TO RUN FRONTEND - FIRST TIME EXECUTING THIS APP ON YOUR LAPTOP(installation of node modules takes a few minutes)
 //New terminal
 //1. npm install
 //2. npm start
 
+//COMMANDS TO RUN BACKEND- IF YOU ALREADY SET UP
+//New terminal
+//1. cd backend
+//2. nodemon index
+
+//COMMANDS TO RUN FRONTEND- IF YOU ALREADY SET UP
+//New terminal
+//1. npm start
 
 //Local host 5001 for backend
 //Local host 3000 for frontend

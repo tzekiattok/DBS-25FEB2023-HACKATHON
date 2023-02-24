@@ -30,5 +30,8 @@
 //Local host 3000 for frontend
 
 //Directory of Applications
-//Backend Codes -->  ./backend
-//Frontend Codes (pages e.g login) --> ./scenes
+//Backend Codes -->  ./backend/index.js
+//Frontend Codes (pages e.g login) --> ./scenes/login/login.jsx
+//SideBar codes can be find in --> ./scenes/global/sidebar.jsx
+
+//You can choose to split your backend into routes/models based on db tables or for simplicity just put all of them into index.js

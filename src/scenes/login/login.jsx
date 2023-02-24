@@ -38,7 +38,7 @@ const Login = () => {
             console.log('response,',response);
             if(response.data.length === 0){
                 console.log(response);
-                setErrorLogin('failed verification')
+                setErrorLogin('Email or Password incorrect')
             }
             else
             {
@@ -57,6 +57,10 @@ const Login = () => {
     //Signup function
     const signUp = async () =>{
         setErrorSignUp("");
+        if (signUpPassword !== signUpConfirmPassword){
+            setErrorSignUp("Password does not match");
+            return;
+        }
         try {
             console.log('email:',signUpEmail)
             console.log('password:', signUpPassword)
@@ -69,7 +73,7 @@ const Login = () => {
             setErrorSignUp("Successfully registered");
             navigate("/");
           } catch (error) {
-            setErrorSignUp("email registered");
+            setErrorSignUp("Email is already registered");
             console.log(error);
           }
     }

@@ -48,7 +48,7 @@ const LogoutItem = ({ title, to, icon, selected, setSelected}) => {
       style={{
         color: colors.grey[200],
       }}
-      onClick= ""
+      onClick= {reactLocalStorage.remove('user')}
       icon={icon}
     >
       <Typography>{title}</Typography>

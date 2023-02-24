@@ -10,9 +10,11 @@ const mysql = require("mysql");
 //COMMANDS TO RUN - FIRST TIME
 //1. cd backend
 //2. npm init -y
-//3. npm install express mysql2 sequelize cors
-//4. npm install -g nodemon
-//5. nodemon index --> to ensure it runs properly
+//3. npm install express mysql2 cors
+//4. cd..
+//5. npm install -g nodemon
+//5. cd backend
+//5. nodemon index --> 'Server up and running... on port 5001' if successful
 
 //Local host 5001 for backend
 //Local host 3000 for frontend

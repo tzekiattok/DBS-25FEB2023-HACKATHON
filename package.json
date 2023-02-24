@@ -57,12 +57,15 @@
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.1",
     "reactjs-localstorage": "^1.0.1",
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0",
     "sequelize": "^6.28.0",
     "styled-components": "^5.3.6",
     "tableau-react": "^2.0.0-beta.0",
     "timers-promises": "^1.0.1",
     "use-force-update": "^1.0.11",
     "web-vitals": "^2.1.4",
+    "webpack": "^5.75.0",
     "yup": "^0.32.11"
   },
   "scripts": {

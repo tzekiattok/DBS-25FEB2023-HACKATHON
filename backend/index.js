@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mysql = require("mysql");
-//import UserRoute from "./routes/UserRoute.js";
+//Make sure you have WAMP, mySQL installed
 
 //COMMANDS TO RUN BACKEND - FIRST TIME EXECUTING THIS APP ON YOUR LAPTOP
 //New terminal
@@ -40,6 +40,7 @@ const db = mysql.createConnection({
     password: "",//default
     database: "crud_db"//to be updated
   });
+  
 db.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");

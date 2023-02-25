@@ -215,7 +215,8 @@ app.post("/deleteClaim", (req, res) => {
 app.post("/editClaim", (req, res) => {
     console.log("deleting claim");
     const claimId = req.body.claimId;
-    const query = `DELETE FROM InsuranceClaims WHERE ClaimID = '${claimId}'`;
+    const alteredFields = req.body.alteredFields;
+    const query = `UPDATE InsuranceClaims SET '${alteredFields}' WHERE ClaimID = '${claimID}' AND (Status = 'Pending' OR Status = 'Rejected')`;
     console.log("executing...", query);
     db.query(query, (err, result) => {
         if (err) {

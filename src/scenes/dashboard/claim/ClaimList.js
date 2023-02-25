@@ -55,7 +55,7 @@ const ClaimList = () => {
 
   const getUsers = async () => {
     console.log(token);
-    const response = await axios.get("http://localhost:5001/getClaims", {
+    const response = await axios.get("http://localhost:5001/getClaimsSummary", {
       headers: { Authorization: `Bearer ${token}` },
     });
     setClaims(response.data);

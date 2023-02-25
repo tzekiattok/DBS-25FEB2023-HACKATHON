@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
-import { ProSidebar, Menu, MenuItem,SidebarFooter, } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem, SidebarFooter } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -9,19 +9,19 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import LogoutIcon from '@mui/icons-material/Logout';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import {reactLocalStorage} from 'reactjs-localstorage';
+import LogoutIcon from "@mui/icons-material/Logout";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import { reactLocalStorage } from "reactjs-localstorage";
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 
 //Test push1
 const navigate = useNavigate;
-const redirectHome =()=>{
-  navigate('/');
-}
-const Item = ({ title, to, icon, selected, setSelected,Onclick }) => {
-  
+const redirectHome = () => {
+  navigate("/");
+};
+const Item = ({ title, to, icon, selected, setSelected, Onclick }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -39,7 +39,7 @@ const Item = ({ title, to, icon, selected, setSelected,Onclick }) => {
   );
 };
 
-const LogoutItem = ({ title, to, icon, selected, setSelected}) => {
+const LogoutItem = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -48,7 +48,7 @@ const LogoutItem = ({ title, to, icon, selected, setSelected}) => {
       style={{
         color: colors.grey[200],
       }}
-      onClick= {reactLocalStorage.remove('user')}
+      onClick={reactLocalStorage.remove("user")}
       icon={icon}
     >
       <Typography>{title}</Typography>
@@ -62,32 +62,32 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setSelected] = useState(window.location.pathname);
-  const [role,setRole] = useState();
-  const link1= {
-    color: 'white',
-    position: 'relative',
-    '&:before': {
+  const [role, setRole] = useState();
+  const link1 = {
+    color: "white",
+    position: "relative",
+    "&:before": {
       content: "''",
-      position: 'absolute',
-      width: '0',
-      height: '2px',
-      bottom: '-3px',
-      left: '50%',
-      transform: 'translate(-50%,0%)',
-      backgroundColor: 'red',
-      visibility: 'hidden',
-      transition: 'all 0.3s ease-in-out',
+      position: "absolute",
+      width: "0",
+      height: "2px",
+      bottom: "-3px",
+      left: "50%",
+      transform: "translate(-50%,0%)",
+      backgroundColor: "red",
+      visibility: "hidden",
+      transition: "all 0.3s ease-in-out",
     },
-    '&:hover:before': {
-      visibility: 'visible',
-      width: '100%',
+    "&:hover:before": {
+      visibility: "visible",
+      width: "100%",
     },
   };
-  
-  useEffect(()=>{
-    console.log('useEffect role render',role)
-  },[role])
- 
+
+  useEffect(() => {
+    console.log("useEffect role render", role);
+  }, [role]);
+
   return (
     <Box
       sx={{
@@ -127,129 +127,128 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[200]}
-                style = {link1}
-                onClick = {redirectHome}
+                <Typography
+                  variant="h3"
+                  color={colors.grey[200]}
+                  style={link1}
+                  onClick={redirectHome}
                 >
                   WISE
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[200],
-            }}/>
+                  <MenuOutlinedIcon
+                    style={{
+                      margin: "10px 0 20px 0",
+                      color: colors.grey[200],
+                    }}
+                  />
                 </IconButton>
               </Box>
             )}
           </MenuItem>
-          
-          {//Profile
-          !isCollapsed && (
-            <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
-              <Typography
-                  variant="h5"
-                  color={colors.grey[200]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                <h1>Welcome</h1>
-                </Typography>
-                {/*<img
+
+          {
+            //Profile
+            !isCollapsed && (
+              <Box mb="25px">
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <Typography
+                    variant="h5"
+                    color={colors.grey[200]}
+                    fontWeight="bold"
+                    sx={{ m: "10px 0 0 0" }}
+                  >
+                    <h1>Welcome</h1>
+                  </Typography>
+                  {/*<img
                   alt="profile-user"
                   width="100px"
                   height="100px"
                   src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
           />*/}
+                </Box>
+                <Box textAlign="center">
+                  <Typography
+                    variant="h5"
+                    color={colors.grey[200]}
+                    fontWeight="bold"
+                    sx={{ m: "10px 0 0 0" }}
+                  ></Typography>
+                  <Typography variant="h5" color={colors.grey[200]}>
+                    User
+                  </Typography>
+                </Box>
               </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h5"
-                  color={colors.grey[200]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                </Typography>
-                <Typography variant="h5" color={colors.grey[200]}>
-                  User
-                </Typography>
-              </Box>
-            </Box>
-          )}
-          
-          
+            )
+          }
+
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-              <>
+            <>
               <Typography
-              variant="h6"
-              color={colors.grey[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-            </Typography>
-            <Item
+                variant="h6"
+                color={colors.grey[200]}
+                sx={{ m: "15px 0 5px 20px" }}
+              ></Typography>
+              {/* <Item
               title="Dashboard"
               to="/dashboard"
               icon={<AnalyticsIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
-              title="Dashboard1"
-              to="/dashboard1"
-              icon={<AnalyticsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Page1"
-              to="/page1"
-              icon={<AnalyticsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Page2"
-              to="/page2"
-              icon={<AnalyticsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Page3"
-              to="/page3"
-              icon={<AnalyticsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="List Users"
-              to="/list"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />   
+            /> */}
+              <Item
+                title="Dashboard1"
+                to="/dashboard1"
+                icon={<AnalyticsIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Policies"
+                to="/policy"
+                icon={<DocumentScannerIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Page2"
+                to="/page2"
+                icon={<AnalyticsIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Page3"
+                to="/claim"
+                icon={<AnalyticsIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="List Users"
+                to="/policy"
+                icon={<HelpOutlineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
             </>
-            
-            
           </Box>
         </Menu>
         <SidebarFooter>
           <Menu //config for logout positioning css
           >
-            <Box paddingLeft={isCollapsed ? undefined : "10%"}
-            >
+            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
               <LogoutItem
                 title="Logout"
                 to="/"
-                icon={<LogoutIcon/>}
+                icon={<LogoutIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              /> 
-             
+              />
             </Box>
           </Menu>
-          </SidebarFooter>
+        </SidebarFooter>
       </ProSidebar>
     </Box>
   );

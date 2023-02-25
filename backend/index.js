@@ -61,28 +61,27 @@ app.get("/getAccounts",(req,res)=>{
 })
 
 //Authenticate User login
-app.post("/verifyAccount",(req,res)=>{
-    console.log('verifying account log in')
-    const email = req.body.email;
-    const password = req.body.password;
-    const query = `SELECT * FROM accounts WHERE email = '${email}' AND password = '${password}'`
-    console.log('executing...',query)
-    db.query(query,(err, result)=>{
+app.post("/verifyAccount", (req, res) => {
+    console.log("verifying account log in");
+    const EmployeeID = req.body.EmployeeID;
+    const Password = req.body.Password;
+    const query = `SELECT * FROM user WHERE EmployeeID = '${EmployeeID}' AND Password = '${Password}'`;
+    console.log("executing...", query);
+    db.query(query, (err, result) => {
         if (err) {
-            console.log(err);//DB error
-          } else {
-            if(result.length > 0){//ALWAYS check the length of the result, else it would show an exception error
-                console.log('result',result[0].email)
+            console.log(err); //DB error
+        } else {
+            if (result.length > 0) {
+                //ALWAYS check the length of the result, else it would show an exception error
+                console.log("result", result[0].email);
+                res.send(result);
+            } else {
+                console.log("No account found in DB");
                 res.send(result);
             }
-            else
-            {
-                console.log('No account found in DB')
-                res.send(result)
-            }
         }
-    })
-})
+    });
+});
 //Insert User
 app.post("/createAccount",(req,res)=>{
     const email = req.body.email;

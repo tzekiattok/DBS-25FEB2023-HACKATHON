@@ -34,8 +34,8 @@ const Login = () => {
         try {
             console.log('start of try catch')
             const response = await axios.post("http://localhost:5001/verifyAccount", {
-              email:loginId,
-              password:loginPassword
+              EmployeeID:loginId,
+              Password:loginPassword
             })
             console.log('response,',response);
             if(response.data.length === 0){

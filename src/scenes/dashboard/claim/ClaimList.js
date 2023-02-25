@@ -27,29 +27,52 @@ import {
 
 const ClaimList = () => {
   const [claims, setClaims] = useState([]);
-  const [data, setData] = useState([])
+  const [summaryLoading, setSummaryLoading] = useState(true);
+  const [data, setData] = useState([
+    {
+      personalAccident: 0,
+      Housing: 0,
+      Car: 0,
+      Travel: 0
+    }
+
+  ])
   const theme = useTheme();
   const email = reactLocalStorage.getObject('user').id;
+  const employeeId = 58001001;
+
+  useEffect(() => {
+    getData();
+    getUsers();
+  }, []);
+
 
   const getData = async () => {
-    console.log('email ->', email);
-    /*try {
-      const response = await axios.post(`http://localhost:5001/getDashboard`, {
-        email,
+    try {
+      console.log('Running dashboard data', employeeId)
+      const response = await axios.post(`http://localhost:5001/getClaimsSummary`, {
+        employeeId
       });
-      console.log('dashboard response',response)
-      setData(response.data[0])
-      console.log('data',data)
-      
+      if (response.data !== []) {
+        for (const i in response.data) {
+          var type = response.data[i];
+          if (type['InsuranceType'] === "Personal Accident") {
+            data[0]["personalAccident"] = type['count']
+          }
+          else {
+            data[0][type['InsuranceType']] = type['count']
+          }
+        }
+        console.log('newdata', data[0]);
+      }
+      console.log('dashboard data', response)
+    }
+    catch (error) {
+      console.log(error)
+    }
+    setSummaryLoading(false)
   }
-  catch(error){
-    console.log(error)
-  }*/
-  }
-  useEffect(() => {
-    getUsers();
-    getData();
-  }, []);
+
 
   const getUsers = async () => {
     // const response = await axios.get("http://localhost:5001/listUsers");
@@ -73,26 +96,28 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
-  
+      {!summaryLoading &&
         <div className="dashboard-bg">
           <Grid container spacing={3} >
             <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Weekly Sales" total={1} icon={'ant-design:android-filled'} />
+              <AppWidgetSummary title="Personal Accident" total={data[0].personalAccident} icon={'ant-design:android-filled'} />
             </Grid>
 
             <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="New Users" total={2} color="info" icon={'ic:baseline-account-balance-wallet'} />
+              <AppWidgetSummary title="Car" total={data[0].Car} color="info" icon={'ic:baseline-account-balance-wallet'} />
             </Grid>
 
             <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Item Orders" total={3} color="warning" icon={'ant-design:windows-filled'} />
+              <AppWidgetSummary title="Travel" total={data[0].Travel} color="warning" icon={'ant-design:windows-filled'} />
             </Grid>
 
             <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Bug Reports" total={4} color="error" icon={'ant-design:bug-filled'} />
+              <AppWidgetSummary title="Housing" total={data[0].Housing} color="error" icon={'ant-design:bug-filled'} />
             </Grid>
           </Grid>
+
         </div>
+      }
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>

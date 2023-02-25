@@ -107,6 +107,20 @@ app.post("/createClaim", (req, res) => {
         }
     });
 });
+app.post("/getClaimsSummary", (req, res) => {
+    console.log("getting claims summary12",req.query);
+    const employeeId = req.body.employeeId;
+    console.log('claims employee ID',employeeId)
+    const query = `SELECT InsuranceType, COUNT(*) AS count FROM InsurancePolicies WHERE EmployeeID = ${employeeId} GROUP BY InsuranceType`;
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
 
 // Deletes claims based on claim id
 app.get("/deleteClaim", (req, res) => {
@@ -168,6 +182,7 @@ app.get("/editClaim", (req, res) => {
         }
     });
 });
+
 
 //Backend Listens to port 5001, your axios calls should be localhost:5001
 app.listen(5001, () => console.log("Server up and running... on port 5001"));

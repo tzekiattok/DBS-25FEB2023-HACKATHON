@@ -130,9 +130,6 @@ app.get("/createClaim", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log("results");
-            console.log(result1[0].maxClaimID);
-            // res.send(result1);
             const prevId = result1[0].maxClaimID;
 
             const claimId = prevId + 1; // auto-generated
@@ -153,18 +150,15 @@ app.get("/createClaim", (req, res) => {
             if (followUp === '0'){
                 query = `INSERT INTO insuranceclaims 
             (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
-            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', NULL, '${status}', '${lastEditedClaimDate}')`;
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', NULL, '${status}', CURRENT_TIMESTAMP())`;
             }else{
                 query = `INSERT INTO insuranceclaims 
             (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
             ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
-
+            }
             console.log(claimId);
             console.log(req.query);
             console.log(query);
-
-            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
-            }
 
             db.query(query, (err, result) => {
                 if (err) {

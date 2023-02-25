@@ -10,7 +10,6 @@ const jwt = require("jsonwebtoken");
 
 // get config vars
 dotenv.config();
-
 //Make sure you have WAMP, mySQL installed
 
 //COMMANDS TO RUN BACKEND - FIRST TIME EXECUTING THIS APP ON YOUR LAPTOP
@@ -150,7 +149,6 @@ app.post("/createAccount", async (req, res) => {
     }
   });
 });
-
 // Return list of claim records based on insuranceId
 app.get("/getClaims", (req, res) => {
   console.log("running query... getClaims");
@@ -210,56 +208,59 @@ app.get("/getPolicySummary", authenticate, (req, res) => {
 
 //Insert Claim
 app.get("/createClaim", authenticate, (req, res) => {
-  // to get the prev max id -> to generate claimId
-  const query1 = `SELECT max(ClaimID) as maxClaimID FROM insuranceclaims`;
-  db.query(query1, (err, result1) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("results");
-      console.log(result1[0].maxClaimID);
-      // res.send(result1);
-      const prevId = result1[0].maxClaimID;
-
-      const claimId = prevId + 1; // auto-generated
-      const insuranceId = req.query.insuranceId;
-      const firstName = req.query.firstName;
-      const lastName = req.query.lastName;
-      const expenseDate = req.query.expenseDate;
-      // const expenseDate = new String(Date())
-      const claimAmt = req.query.claimAmt;
-      const purpose = req.query.purpose;
-      const followUp = req.query.followUp;
-      const prevClaimId = req.query.prevClaimId;
-      const status = "Pending"; // everytime create new claim -> status is pending
-      const lastEditedClaimDate = new String(Date());
-      const query = `INSERT INTO insuranceclaims 
-            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
-            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
-
-      console.log(claimId);
-      console.log(req.query);
-      console.log(query);
-
-      db.query(query, (err, result) => {
+    // to get the prev max id -> to generate claimId
+    const query1 = `SELECT max(ClaimID) as maxClaimID FROM insuranceclaims`;
+    db.query(query1, (err, result1) => {
         if (err) {
-          console.log(err);
-          res.status(400);
-          res.send(err);
+            console.log(err);
         } else {
-          if (result.length > 0) {
-            //ALWAYS check the length of the result, else it would show an exception error
-            console.log("Claim created");
-            console.log("result", result);
-            res.send(result);
-          } else {
-            console.log("No account found in DB");
-            res.send(result);
-          }
-          // console.log("Claim created");
-          // console.log("result", result);
-          // res.status(200);
-          // res.send(result);
+            const prevId = result1[0].maxClaimID;
+
+            const claimId = prevId + 1; // auto-generated
+            const insuranceId = req.query.insuranceId;
+            const firstName = req.query.firstName;
+            const lastName = req.query.lastName;
+            const expenseDate = req.query.expenseDate;
+            const claimAmt = req.query.claimAmt;
+            const purpose = req.query.purpose;
+            const followUp = req.query.followUp;
+            const prevClaimId = req.query.prevClaimId;
+            const status = "Pending"; // everytime create new claim -> status is pending
+            // const lastEditedClaimDate = new String(Date());
+            
+
+            // checking if followUp = 0 and return NULL for prevClaimId
+            let query=``;
+            if (followUp === '0'){
+                query = `INSERT INTO insuranceclaims 
+            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', NULL, '${status}', CURRENT_TIMESTAMP())`;
+            }else{
+                query = `INSERT INTO insuranceclaims 
+            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', CURRENT_TIMESTAMP())`;
+            }
+            console.log(claimId);
+            console.log(req.query);
+            console.log(query);
+
+            db.query(query, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(400);
+                    res.send(err);
+                } else {
+                    if (result.length > 0) {
+                        //ALWAYS check the length of the result, else it would show an exception error
+                        console.log("Claim created");
+                        console.log("result", result);
+                        res.send(result);
+                    } else {
+                        console.log("No account found in DB");
+                        res.send(result);
+                    }
+                }
+            });
         }
       });
     }

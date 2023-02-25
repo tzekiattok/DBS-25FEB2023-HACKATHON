@@ -9,12 +9,20 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+<<<<<<< HEAD
 import LogoutIcon from "@mui/icons-material/Logout";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import { reactLocalStorage } from "reactjs-localstorage";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+=======
+import LogoutIcon from '@mui/icons-material/Logout';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import {reactLocalStorage} from 'reactjs-localstorage';
+>>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
 
 //Test push1
 const navigate = useNavigate;
@@ -186,16 +194,26 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <>
               <Typography
+<<<<<<< HEAD
                 variant="h6"
                 color={colors.grey[200]}
                 sx={{ m: "15px 0 5px 20px" }}
               ></Typography>
               {/* <Item
+=======
+              variant="h6"
+              color={colors.grey[200]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+            </Typography>
+            <Item
+>>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
               title="Dashboard"
               to="/dashboard"
               icon={<AnalyticsIcon />}
               selected={selected}
               setSelected={setSelected}
+<<<<<<< HEAD
             /> */}
               <Item
                 title="Dashboard1"
@@ -232,6 +250,44 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+=======
+            />
+            <Item
+              title="Dashboard1"
+              to="/dashboard1"
+              icon={<AnalyticsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Page1"
+              to="/page1"
+              icon={<AnalyticsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Page2"
+              to="/page2"
+              icon={<AnalyticsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Page3"
+              to="/page3"
+              icon={<AnalyticsIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="List Users"
+              to="/list"
+              icon={<HelpOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />   
+>>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
             </>
           </Box>
         </Menu>

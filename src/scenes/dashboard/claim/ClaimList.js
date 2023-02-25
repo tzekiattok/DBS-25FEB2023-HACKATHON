@@ -49,23 +49,9 @@ const ClaimList = () => {
   const getData = async () => {
     try {
       console.log("Running dashboard data", employeeId);
-      const response = await axios.get(
-        `http://localhost:5001/getClaimsSummary`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (response.data !== []) {
-        for (const i in response.data) {
-          var type = response.data[i];
-          if (type["InsuranceType"] === "Personal Accident") {
-            data[0]["personalAccident"] = type["count"];
-          } else {
-            data[0][type["InsuranceType"]] = type["count"];
-          }
-        }
-        console.log("newdata", data[0]);
-      }
+      const response = await axios.get(`http://localhost:5001/getAllClaims`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       console.log("dashboard data", response);
       setClaims(response.data);
     } catch (error) {
@@ -87,65 +73,25 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
-      {!summaryLoading && (
-        <div className="dashboard-bg">
-          <Grid container spacing={3}>
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Personal Accident"
-                total={data[0].personalAccident}
-                icon={"ant-design:android-filled"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Car"
-                total={data[0].Car}
-                color="info"
-                icon={"ic:baseline-account-balance-wallet"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Travel"
-                total={data[0].Travel}
-                color="warning"
-                icon={"ant-design:windows-filled"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Housing"
-                total={data[0].Housing}
-                color="error"
-                icon={"ant-design:bug-filled"}
-              />
-            </Grid>
-          </Grid>
-        </div>
-      )}
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>
             <DataGrid
               pagination
-              getRowId={(row) => row.ClaimID}
+              getRowId={(row) => row.claimid}
               rows={claims}
               columns={[
-                { field: "ClaimID", headerName: "ID" },
-                { field: "FirstName", headerName: "First Name" },
-                { field: "LastName", headerName: "Last Name" },
-                { field: "ExpenseDate", headerName: "Expense Date" },
-                { field: "Amount", headerName: "Amount" },
-                { field: "Purpose", headerName: "Purpose", width: 150 },
-                { field: "FollowUp", headerName: "Follow Up" },
-                { field: "PreviousClaimID", headerName: "Previous Claim ID" },
-                { field: "Status", headerName: "Status" },
+                { field: "claimid", headerName: "ID" },
+                { field: "firstName", headerName: "First Name" },
+                { field: "lastName", headerName: "Last Name" },
+                { field: "expensedate", headerName: "Expense Date" },
+                { field: "amount", headerName: "Amount" },
+                { field: "purpose", headerName: "Purpose", width: 150 },
+                { field: "followup", headerName: "Follow Up" },
+                { field: "previousclaimID", headerName: "Previous Claim ID" },
+                { field: "status", headerName: "Status" },
                 {
-                  field: "LastEditedClaimDate",
+                  field: "lasteditedclaimdate",
                   headerName: "Last Edited Claim Date",
                   width: 200,
                 },

@@ -79,7 +79,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `gender`, `createdAt`, `updatedAt`) 
 
 
 INSERT INTO `dashboard` (`email`, `item1`,`item2`,`item3`,`item4`) VALUES
-('john@gmail.com', 123456, 443128, 1238888,477123);
+('toktzekiat@gmail.com', 123456, 443128, 1238888,477123);
 
 
 --

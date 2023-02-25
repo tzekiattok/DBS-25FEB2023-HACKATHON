@@ -32,7 +32,6 @@ export default function DashboardAppPage() {
   const [data,setData] =useState([])
   const theme = useTheme();
   const email = reactLocalStorage.getObject('user').id;
-
   //call to get user's data for dashboard
   const getData =  async () =>{
     console.log('email ->',email);
@@ -43,7 +42,6 @@ export default function DashboardAppPage() {
       console.log('dashboard response',response)
       setData(response.data[0])
       console.log('data',data)
-      
   }
   catch(error){
     console.log(error)

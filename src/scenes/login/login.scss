@@ -207,6 +207,11 @@ $breakpoint-mobile: 768px;
                         width: 50vw;
                     }
                 }
+                &__inputHalf{
+                    width: 145px;
+
+                }
+                
                 &--name {
                     background-image: url(../../assets/images/human-icon-png-7.png);
                     background-repeat: no-repeat;

@@ -135,10 +135,11 @@ const Login = () => {
                                     })}*/
                                     required />
                                     <input
-                                    className="login__login-container__main-container__form-container__form--email"
+                                    className="login__login-container__main-container__form-container2__form--email"
                                     type="text"
                                     placeholder="Last Name"
                                     onChange = {(event)=> setSignUpLastName(event.target.value)}
+
                                     /*value={this.state.signInForm.email}
                                     onChange={(value) => this.setState({
                                         signInForm: {

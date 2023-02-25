@@ -18,9 +18,7 @@ const PolicyList = () => {
   },[]);
 
   const getPolicies = async () => {
-    // user = reactLocalStorage.getObject('user').userID
     const response = await axios.get("http://localhost:5001/getPolicies", {headers: { Authorization: `Bearer ${token}` }});
-    // const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: user.userID } });
     setPolicy(response.data);
   };
 

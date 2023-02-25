@@ -80,6 +80,33 @@ app.get("/getClaims", (req, res) => {
     });
 });
 
+// Get all claims based on a particular employeeID
+app.get("/getAllClaims", (req, res) => {
+    console.log("getting all claims based on employeeID...");
+    const employeeId = req.query.employeeId;
+    const query = `SELECT 
+        c.claimid,
+        c.insuranceid,
+        c.firstName, 
+        c.lastName,
+        c.expensedate,
+        c.amount,
+        c.purpose,
+        c.followup,
+        c.previousclaimID,
+        c.status,
+        c.lasteditedclaimdate FROM insuranceClaims c INNER JOIN insurancePolicies p ON c.InsuranceID = p.InsuranceID WHERE employeeID = ${employeeId}`;
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
 // Return list of claim records based on insuranceId
 app.get("/getPolicySummary", (req, res) => {
     console.log("running query... getPolicySummary");
@@ -104,9 +131,9 @@ app.get("/createClaim", (req, res) => {
             console.log(err);
         } else {
             console.log("results");
-            console.log(result1[0].maxClaimID)
+            console.log(result1[0].maxClaimID);
             // res.send(result1);
-            const prevId = result1[0].maxClaimID
+            const prevId = result1[0].maxClaimID;
 
             const claimId = prevId + 1; // auto-generated
             const insuranceId = req.query.insuranceId;
@@ -117,7 +144,7 @@ app.get("/createClaim", (req, res) => {
             const purpose = req.query.purpose;
             const followUp = req.query.followUp;
             const prevClaimId = req.query.prevClaimId;
-            const status = 'Pending' // everytime create new claim -> status is pending
+            const status = "Pending"; // everytime create new claim -> status is pending
             const lastEditedClaimDate = new String(Date());
             
 
@@ -130,6 +157,12 @@ app.get("/createClaim", (req, res) => {
             }else{
                 query = `INSERT INTO insuranceclaims 
             (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
+
+            console.log(claimId);
+            console.log(req.query);
+            console.log(query);
+
             ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
             }
 
@@ -150,10 +183,8 @@ app.get("/createClaim", (req, res) => {
                     }
                 }
             });
-                }
+        }
     });
-
-    
 });
 
 // Deletes claims based on claim id

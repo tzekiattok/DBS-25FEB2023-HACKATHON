@@ -18,7 +18,7 @@ import PolicyList from "./scenes/policy/PolicyList";
 import ProtectedRoute from "./scenes/protectedRoutes/protectedRoutes";
 import AuthProvider from "./Auth";
 import ClaimList from "./scenes/dashboard/claim/ClaimList";
-
+import { useAuth } from "./Auth";
 function App() {
   const [theme, colorMode] = useMode();
   const { pathname } = useLocation();
@@ -34,33 +34,34 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
-
-        <div className="app">
-          {/* hide sidebar in login page and signin */}
-          {pathname !== "/" &&
-            pathname !== "/signup" &&
-            pathname !== "/resetPassword" && <Sidebar />}
-          <main className="content">
-            {/* hide topbar in login page and signin */}
-            {/*pathname !== '/' && pathname !=='/signup' && pathname !=='/resetPassword' &&  <Topbar/>*/}
-            <Routes>
-              {/* Authenticated Route -> Redirects user to landing page IF they are authenticated*/}
-              <Route path="/" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/dashboard1" element={<DashboardAppPage />} />
-              <Route path="/claim" element={<ClaimList />} />
-              <Route path="add" element={<AddUser />} />
-              <Route path="edit/:id" element={<EditUser />} />
-              <Route path="/policy" element={<PolicyList/>} />
-              <Route path="/policy/:policyID" element={<ClaimsByPolicies/>} />
-              <Route path="page1" element={<Page1 />} />
-              <Route path="page2" element={<Page2 />} />
-              <Route path="page3" element={<Page3 />} />
-            </Routes>
-          </main>
-        </div>
+          <div className="app">
+            {/* hide sidebar in login page and signin */}
+            {pathname !== "/" &&
+              pathname !== "/signup" &&
+              pathname !== "/resetPassword" && <Sidebar />}
+            <main className="content">
+              {/* hide topbar in login page and signin */}
+              {/*pathname !== '/' && pathname !=='/signup' && pathname !=='/resetPassword' &&  <Topbar/>*/}
+              <Routes>
+                {/* Authenticated Route -> Redirects user to landing page IF they are authenticated*/}
+                <Route path="/" element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard1" element={<DashboardAppPage />} />
+                <Route path="/claim" element={<ClaimList />} />
+                <Route path="add" element={<AddUser />} />
+                <Route path="edit/:id" element={<EditUser />} />
+                <Route path="/policy" element={<PolicyList />} />
+                <Route
+                  path="/policy/:policyID"
+                  element={<ClaimsByPolicies />}
+                />
+                <Route path="page1" element={<Page1 />} />
+                <Route path="page2" element={<Page2 />} />
+                <Route path="page3" element={<Page3 />} />
+              </Routes>
+            </main>
+          </div>
         </AuthProvider>
-
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

@@ -14,7 +14,6 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 
 //Test push1
 const navigate = useNavigate;
@@ -188,13 +187,13 @@ const Sidebar = () => {
               sx={{ m: "15px 0 5px 20px" }}
             >
             </Typography>
-            {/* <Item
+            <Item
               title="Dashboard"
               to="/dashboard"
               icon={<AnalyticsIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             <Item
               title="Dashboard1"
               to="/dashboard1"
@@ -203,9 +202,9 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Policies"
-              to="/policy"
-              icon={<DocumentScannerIcon />}
+              title="Page1"
+              to="/page1"
+              icon={<AnalyticsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -225,7 +224,7 @@ const Sidebar = () => {
             />
             <Item
               title="List Users"
-              to="/policy"
+              to="/list"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

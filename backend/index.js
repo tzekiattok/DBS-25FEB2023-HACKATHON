@@ -80,6 +80,21 @@ app.get("/getClaims", (req, res) => {
     });
 });
 
+// Return list of claim records based on insuranceId
+app.get("/getPolicySummary", (req, res) => {
+    console.log("running query... getPolicySummary");
+    const insuranceId = req.query.insuranceId;
+    const query = `SELECT Status, count(InsuranceID) as total FROM insuranceclaims WHERE InsuranceID = ${insuranceId} GROUP BY Status`;
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("results");
+            res.send(result);
+        }
+    });
+});
+
 //Insert Claim
 app.get("/createClaim", (req, res) => {
     // to get the prev max id -> to generate claimId

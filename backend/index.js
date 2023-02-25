@@ -328,8 +328,8 @@ app.get("/editClaim", authenticate, (req, res) => {
 });
 
 app.get("/getClaimsSummary", authenticate, (req, res) => {
-  console.log("getting claims summary");
   const employeeId = req.user.EmployeeID;
+  console.log(employeeId);
   const query = `SELECT InsuranceType, COUNT(*) AS count FROM InsurancePolicies WHERE EmployeeID = ${employeeId} GROUP BY InsuranceType`;
 
   db.query(query, (err, result) => {

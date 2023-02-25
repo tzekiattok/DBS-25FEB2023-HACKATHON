@@ -13,7 +13,8 @@ import EditUser from "./scenes/users/EditUser";
 import Page1 from "./scenes/page1/page1";
 import Page2 from "./scenes/page2/page2";
 import Page3 from "./scenes/page3/page3";
-import ClaimsByPolicies from "./scenes/ClaimsByPolicies/ClaimsByPolicies";
+import ClaimsByPolicies from "./scenes/dashboard/ClaimsByPolicies/ClaimsByPolicies";
+import PolicyList from "./scenes/policy/PolicyList";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -40,11 +41,11 @@ function App() {
               <Route path="/" element={<Login/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
                 <Route path="/dashboard1" element={<DashboardAppPage/>} />
-                <Route path="/list" element={<UserList/>} />
+                <Route path="/policy/id" element={<ClaimsByPolicies/>} />
                 <Route path="add" element={<AddUser/>} />
                 <Route path="edit/:id" element={<EditUser/>} />
-                <Route path="page1" element={<Page1/>} />
-                <Route path="page2" element={<Page2/>} />
+                <Route path="/policy" element={<PolicyList/>} />
+                <Route path="/policy/:id" element={<ClaimsByPolicies/>} />
                 <Route path="page3" element={<Page3/>} />
             </Routes>
           </main>

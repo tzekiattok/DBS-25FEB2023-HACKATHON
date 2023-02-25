@@ -203,7 +203,7 @@ const Sidebar = () => {
             />
             <Item
               title="Page1"
-              to="/page1"
+              to="/policy"
               icon={<AnalyticsIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -224,7 +224,7 @@ const Sidebar = () => {
             />
             <Item
               title="List Users"
-              to="/list"
+              to="/policy"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -90,58 +90,6 @@ const ClaimList = () => {
         ) : (
           <div>Loading...</div>
         )}
-        {/* <table className="table is-striped is-fullwidth">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Expense Date</th>
-              <th>Amount</th>
-              <th>Purpose</th>
-              <th>Follow Up</th>
-              <th>Previous Claim ID</th>
-              <th>Status</th>
-              <th>Last Edited Claim Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {claims.map((claim, index) => (
-              <tr key={claim.ClaimID}>
-                <td>{index + 1}</td>
-                <td>{claim.FirstName}</td>
-                <td>{claim.LastName}</td>
-                <td>{claim.ExpenseDate}</td>
-                <td>{claim.Amount}</td>
-                <td>{claim.Purpose}</td>
-                <td>{claim.FollowUp}</td>
-                <td>{claim.PreviousClaimID}</td>
-                <td>{claim.Status}</td>
-                <td>{claim.LastEditedClaimDate}</td>
-                <td>
-                  <Link
-                    to={`/edit/${claim.id}`}
-                    state={{
-                      username: claim.name,
-                      useremail: claim.email,
-                      usergender: claim.gender,
-                    }}
-                    className="button is-small is-info mr-2"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => deleteUser(claim.id)}
-                    className="button is-small is-danger"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
       </div>
     </Box>
   );

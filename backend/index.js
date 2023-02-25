@@ -92,8 +92,8 @@ app.post("/verifyAccount", (req, res) => {
                 // res.setHeader('Set-Cookie', [
                 //     `accessToken=${token}; HttpOnly; Max-Age=${60000 * 15};`,
                 //   ])
-                res.cookie('accessToken',token, { maxAge: 900000, httpOnly: true });
                 console.log(token)
+                verified.token = token;
                 res.send(verified)
             }
             else {

@@ -113,20 +113,25 @@ app.get("/createClaim", (req, res) => {
             const firstName = req.query.firstName;
             const lastName = req.query.lastName;
             const expenseDate = req.query.expenseDate;
-            // const expenseDate = new String(Date())
             const claimAmt = req.query.claimAmt;
             const purpose = req.query.purpose;
             const followUp = req.query.followUp;
             const prevClaimId = req.query.prevClaimId;
             const status = 'Pending' // everytime create new claim -> status is pending
             const lastEditedClaimDate = new String(Date());
-            const query = `INSERT INTO insuranceclaims 
-            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
-            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
             
-            console.log(claimId)
-            console.log(req.query)
-            console.log(query)
+
+            // checking if followUp = 0 and return NULL for prevClaimId
+            let query=``;
+            if (followUp === '0'){
+                query = `INSERT INTO insuranceclaims 
+            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', NULL, '${status}', '${lastEditedClaimDate}')`;
+            }else{
+                query = `INSERT INTO insuranceclaims 
+            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', b'${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
+            }
 
             db.query(query, (err, result) => {
                 if (err) {
@@ -143,10 +148,6 @@ app.get("/createClaim", (req, res) => {
                         console.log("No account found in DB");
                         res.send(result);
                     }
-                    // console.log("Claim created");
-                    // console.log("result", result);
-                    // res.status(200);
-                    // res.send(result);
                 }
             });
                 }

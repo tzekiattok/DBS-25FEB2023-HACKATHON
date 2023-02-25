@@ -40,7 +40,7 @@ export default function DashboardAppPage() {
       });
       console.log('dashboard response',response)
       setData(response.data[0])
-      console.log('data',data)*/
+      console.log('data',data)
       console.log('setting data')
       setData( [
         {

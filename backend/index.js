@@ -333,8 +333,8 @@ app.get("/editClaim", (req, res) => {
 });
 
 app.get("/getClaimsSummary", (req, res) => {
-    console.log("getting claims summary");
-    const employeeId = req.query.employeeId;
+    console.log("getting claims summary",req.body.employeeID);
+    const employeeId = req.body.employeeId;
     const query = `SELECT InsuranceType, COUNT(*) AS count FROM InsurancePolicies WHERE EmployeeID = ${employeeId} GROUP BY InsuranceType`;
 
     db.query(query, (err, result) => {

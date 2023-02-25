@@ -13,6 +13,10 @@ import EditUser from "./scenes/users/EditUser";
 import Page1 from "./scenes/page1/page1";
 import Page2 from "./scenes/page2/page2";
 import Page3 from "./scenes/page3/page3";
+import ClaimsByPolicies from "./scenes/dashboard/ClaimsByPolicies/ClaimsByPolicies";
+import PolicyList from "./scenes/policy/PolicyList";
+import ProtectedRoute from "./scenes/protectedRoutes/protectedRoutes";
+import AuthProvider from "./Auth";
 import ClaimList from "./scenes/dashboard/claim/ClaimList";
 
 function App() {
@@ -29,6 +33,8 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <AuthProvider>
+
         <div className="app">
           {/* hide sidebar in login page and signin */}
           {pathname !== "/" &&
@@ -45,12 +51,16 @@ function App() {
               <Route path="/claim" element={<ClaimList />} />
               <Route path="add" element={<AddUser />} />
               <Route path="edit/:id" element={<EditUser />} />
+              <Route path="/policy" element={<PolicyList/>} />
+              <Route path="/policy/:policyID" element={<ClaimsByPolicies/>} />
               <Route path="page1" element={<Page1 />} />
               <Route path="page2" element={<Page2 />} />
               <Route path="page3" element={<Page3 />} />
             </Routes>
           </main>
         </div>
+        </AuthProvider>
+
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

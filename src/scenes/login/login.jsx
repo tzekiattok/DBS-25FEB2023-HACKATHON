@@ -7,9 +7,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { useAuthUpdate,useAuth } from "../../Auth";
 
 
 const Login = () => {
+    const setJwtToken = useAuthUpdate();
+    const jwtToken = useAuth()
+    console.log(jwtToken)
     const [thisState,setThisState] = useState(false);
     //Set hooks for login:
     const [loginId, setLoginId] = useState("");
@@ -38,7 +42,7 @@ const Login = () => {
               Password:loginPassword
             })
             console.log('response,',response);
-            if(response.data.length === 0){
+            if(response.data.verification === 'failure'){
                 console.log(response);
                 setErrorLogin('Email or Password incorrect')
             }
@@ -46,13 +50,12 @@ const Login = () => {
             {
                 console.log(response);
                 console.log('successful verification');
-                reactLocalStorage.setObject('user', {'id': loginId});
-                
+                setJwtToken(response.data.token);                
                 navigate("/list");
             }
           } catch (error) {
             console.log(error);
-          }        
+          }
     }
     //Signup function
     const signUp = async () =>{

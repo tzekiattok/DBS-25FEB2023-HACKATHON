@@ -23,7 +23,9 @@ const PolicyList = () => {
   });
 
   const getPolicies = async () => {
-    const response = await axios.get("http://localhost:5001/listPolicies");
+    // user = reactLocalStorage.getObject('user').userID
+    const response = await axios.get("http://localhost:5001/getPolicies");
+    // const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: user.userID } });
     setPolicy(response.data);
   };
 
@@ -51,7 +53,7 @@ const PolicyList = () => {
                 <td>{policy.InsuranceID}</td>
                 <td>{policy.InsuranceType}</td>
                 <td>{policy.PolicyStartDate}</td>
-                <td>{policy.term}</td>
+                <td>{policy.PolicyTerm}</td>
                 <td>{policy.PolicyEndDate}</td>
                 <td>{policy.ClaimLimit}</td>
                 <td>{policy.RemainingClaimLimit}</td>

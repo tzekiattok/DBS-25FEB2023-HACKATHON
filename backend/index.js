@@ -2,6 +2,14 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mysql = require("mysql");
+const bcrypt = require("bcrypt");
+const generateAccessToken = require("./generateAccessToken")
+const dotenv = require('dotenv');
+var cookieParser = require('cookie-parser');
+
+// get config vars
+dotenv.config();
+
 //Make sure you have WAMP, mySQL installed
 
 //COMMANDS TO RUN BACKEND - FIRST TIME EXECUTING THIS APP ON YOUR LAPTOP
@@ -32,13 +40,14 @@ const mysql = require("mysql");
 //Local host 3000 for frontend
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 //Create Connection
 const db = mysql.createConnection({
     user: "root",//default
     host: "localhost",//default
     password: "",//default
-    database: "crud_db"//to be updated
+    database: "insurancedata"//to be updated
   });
   
 db.connect(function(err) {
@@ -60,60 +69,78 @@ app.get("/getAccounts",(req,res)=>{
     })
 })
 
-//Authenticate User login
 app.post("/verifyAccount", (req, res) => {
-    console.log("verifying account log in");
-    const EmployeeID = req.body.EmployeeID;
-    const Password = req.body.Password;
-    const query = `SELECT * FROM user WHERE EmployeeID = '${EmployeeID}' AND Password = '${Password}'`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                console.log("result", result[0].email);
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
+    const EmployeeID = req.body.EmployeeID
+    const Password = req.body.Password
+    const sqlSearch = "Select * from user where EmployeeID = ?"
+    const search_query = mysql.format(sqlSearch, [EmployeeID])
+    
+    db.query(search_query, async (err, result) => {
+        if (err) throw (err)
+        const verified = {verification: 'failure'}
+        if (result.length === 0) {
+            console.log("--------> User does not exist")
+            res.send(verified)
+        }
+        else {
+            const hashedPassword = result[0].Password
+            //get the hashedPassword from result
+            if (await bcrypt.compare(Password, hashedPassword)) {
+                console.log("---------> Login Successful")
+                const token = generateAccessToken({EmployeeID: EmployeeID})
+                verified.verification = 'success'
+                // res.setHeader('Set-Cookie', [
+                //     `accessToken=${token}; HttpOnly; Max-Age=${60000 * 15};`,
+                //   ])
+                res.cookie('accessToken',token, { maxAge: 900000, httpOnly: true });
+                console.log(token)
+                res.send(verified)
+            }
+            else {
+                console.log("---------> Password Incorrect")
+                res.send(verified)
             }
         }
-    });
-});
+    })
+})
+
 //Insert User
-app.post("/createAccount",(req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    const query = `INSERT INTO accounts (email, password) VALUES ('${email}', '${password}')`
-    db.query(query,(err, result)=>{
+app.post("/createAccount", async (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const age = req.body.age;
+    // const salt = await bcrypt.genSalt(15)
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const employeeID_query = "SELECT MAX(EmployeeID) FROM user"
+    const sqlInsert = "INSERT INTO user VALUES (?,?,?,?,?)"
+
+    db.query(employeeID_query, (err, result) => {
         if (err) {
             console.log(err);
-            res.status(400);
-            res.send(err);
           } else {
-            console.log('Account created')
-            console.log('result',result)
-            res.status(200)
-            res.send(result);
+            const employeeID = result[0]['MAX(EmployeeID)'] + 1
+            const insert_query = mysql.format(sqlInsert, [employeeID, hashedPassword, firstName, lastName, age])
+            db.query(insert_query, (err, result) => {
+                if (err) throw (err)
+                console.log("--------> Created new User")
+                res.sendStatus(201)
+            })
         }
-    })
-
+    })    
 })
 
 //List users
 //Authenticate User login
 app.get("/listUsers",(req,res)=>{
     console.log('getting all users')
-    const query = `SELECT * FROM users`
+    const query = `SELECT * FROM user`
     console.log('executing...',query)
     db.query(query,(err, result)=>{
         if (err) {
             console.log(err);//DB error
           } else {
             if(result.length > 0){//ALWAYS check the length of the result, else it would show an exception error
-                console.log('result',result)
+                // console.log('result',result)
                 res.send(result);
             }
             else

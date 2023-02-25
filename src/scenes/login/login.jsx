@@ -42,7 +42,7 @@ const Login = () => {
               Password:loginPassword
             })
             console.log('response,',response);
-            if(response.data.length === 0){
+            if(response.data.verification === 'failure'){
                 console.log(response);
                 setErrorLogin('Email or Password incorrect')
             }

@@ -46,11 +46,14 @@ db.connect(function (err) {
     console.log("Connected!");
 });
 
-//################################################################### EXAMPLE BACKEND CALLS #############################################################################################
-//Methods - call any methods from the database specified ^ in db
-app.get("/getAccounts", (req, res) => {
-    console.log("running query... getAccount");
-    db.query("SELECT * FROM accounts", (err, result) => {
+//################################################################### BACKEND CALLS #############################################################################################
+// Return list of policies based on employeeId
+// TO DO: INPUT THE EMPLOYEE ID GIVEN
+app.get("/getPolicies", (req, res) => {
+    console.log("running query... getPolicies");
+    const employeeId = req.query.employeeId;
+    const query = `SELECT * FROM insurancepolicies WHERE EmployeeID = ${employeeId}`;
+    db.query(query, (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -60,36 +63,20 @@ app.get("/getAccounts", (req, res) => {
     });
 });
 
-// Return list of policies based on employeeId
-// TO DO: INPUT THE EMPLOYEE ID GIVEN
-app.get("/getPolicies",(req,res)=>{
-    console.log('running query... getPolicies')
-    const employeeId = req.query.employeeId;
-    const query = `SELECT * FROM insurancepolicies WHERE EmployeeID = ${employeeId}`
-    db.query(query,(err, result)=>{
-        if (err) {
-            console.log(err);
-          } else {
-            console.log('results')
-            res.send(result);
-        }
-    })
-})
-
 // Return list of claim records based on insuranceId
-app.get("/getClaims",(req,res)=>{
-    console.log('running query... getClaims')
+app.get("/getClaims", (req, res) => {
+    console.log("running query... getClaims");
     const insuranceId = req.body.insuranceId;
-    const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`
-    db.query(query,(err, result)=>{
+    const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`;
+    db.query(query, (err, result) => {
         if (err) {
             console.log(err);
-          } else {
-            console.log('results')
+        } else {
+            console.log("results");
             res.send(result);
         }
-    })
-})
+    });
+});
 
 //Insert User
 app.post("/createClaim", (req, res) => {
@@ -102,7 +89,7 @@ app.post("/createClaim", (req, res) => {
     const purpose = req.body.purpose;
     const followUp = req.body.followUp;
     const prevClaimId = req.body.prevClaimId;
-    const status = 'Pending' // everytime create new claim -> status is pending
+    const status = "Pending"; // everytime create new claim -> status is pending
     const lastEditedClaimDate = new String(Date());
     const query = `INSERT INTO insuranceclaims 
     (employeeId, insuranceId, firstName, lastName, date, claimAmt, purpose, followUp, prevClaimId, status, lastEditedClaimDate) VALUES 
@@ -121,28 +108,6 @@ app.post("/createClaim", (req, res) => {
     });
 });
 
-//Authenticate User login
-app.post("/verifyAccount", (req, res) => {
-    console.log("verifying account log in");
-    const email = req.body.email;
-    const password = req.body.password;
-    const query = `SELECT * FROM accounts WHERE email = '${email}' AND password = '${password}'`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                console.log("result", result[0].email);
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
-            }
-        }
-    });
-});
 //Insert User
 app.post("/createAccount", (req, res) => {
     const email = req.body.email;
@@ -158,95 +123,6 @@ app.post("/createAccount", (req, res) => {
             console.log("result", result);
             res.status(200);
             res.send(result);
-        }
-    });
-});
-
-//List users
-//Authenticate User login
-app.get("/listUsers", (req, res) => {
-    console.log("getting all users");
-    const query = `SELECT * FROM InsuranceClaims`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                console.log("result", result);
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
-            }
-        }
-    });
-});
-
-//User Delete
-app.post("/deleteUsers", (req, res) => {
-    console.log("deleting users");
-    const id = req.body.id;
-    const query = `DELETE FROM users WHERE id = '${id}'`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                console.log("result", result);
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
-            }
-        }
-    });
-});
-
-app.patch("/editUsers", (req, res) => {
-    console.log("updating users");
-    const id = req.body.id;
-    const name = req.body.name;
-    const email = req.body.email;
-    const gender = req.body.gender;
-    const query = `UPDATE users SET name ='${name}' , email ='${email}', gender ='${gender}'  WHERE id = '${id}'`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                console.log("result", result);
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
-            }
-        }
-    });
-});
-//getDashboard databased on Email
-app.post("/getDashboard", (req, res) => {
-    console.log("verifying account log in");
-    const email = req.body.email;
-    const query = `SELECT * FROM dashboard WHERE email = '${email}'`;
-    console.log("executing...", query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err); //DB error
-        } else {
-            if (result.length > 0) {
-                //ALWAYS check the length of the result, else it would show an exception error
-                //console.log('result',result[0].email)
-                res.send(result);
-            } else {
-                console.log("No account found in DB");
-                res.send(result);
-            }
         }
     });
 });

@@ -25,21 +25,25 @@ import {
   //AppCurrentSubject,
   //AppConversionRates,
 } from './dashBoardDependencies';
+
 // ----------------------------------------------------------------------
+
 export default function DashboardAppPage() {
   const [data,setData] =useState([])
   const theme = useTheme();
   const email = reactLocalStorage.getObject('user').id;
+
   //call to get user's data for dashboard
   const getData =  async () =>{
     console.log('email ->',email);
     try {
-      /*const response = await axios.post(`http://localhost:5001/getClaimsSummary`, {
-        id,
+      const response = await axios.post(`http://localhost:5001/getDashboard`, {
+        email,
       });
       console.log('dashboard response',response)
       setData(response.data[0])
-      console.log('data',data)*/
+      console.log('data',data)
+<<<<<<< HEAD
       console.log('setting data')
       setData( [
         {
@@ -50,18 +54,19 @@ export default function DashboardAppPage() {
       }
     ])
 
+=======
+      
+>>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
   }
   catch(error){
     console.log(error)
   }
 }
-useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
   return (
-    
     <>
-    {data[0] !=={}&&
     <Box m="20px" >
         <title> Dashboard | Minimal UI </title>
       
@@ -70,19 +75,19 @@ useEffect(() => {
       <div className ="dashboard-bg">
         <Grid container spacing={3} >
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Approved" total={data[0].approved} icon={'material-symbols:order-approve'} />
+            <AppWidgetSummary title="Weekly Sales" total={data['item1']} icon={'ant-design:android-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Pending" total={data[0].rejected} color="info" icon={'material-symbols:pending'} />
+            <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ic:baseline-account-balance-wallet'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Rejected" total={data[0].pending} color="warning" icon={'fluent:text-change-reject-20-filled'} />
+            <AppWidgetSummary title="Item Orders" total={data['item3']} color="warning" icon={'ant-design:windows-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total" total={data[0].total} color="error" icon={'clarity:form-line'} />
+            <AppWidgetSummary title="Bug Reports" total={data['item4']} color="error" icon={'ant-design:bug-filled'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
@@ -238,13 +243,23 @@ useEffect(() => {
             */}
           </Grid>
 
-          
+          <Grid item xs={12} md={6} lg={8}>
+            <AppTasks
+              title="Tasks"
+              list={[
+                { id: '1', label: 'Create FireStone Logo' },
+                { id: '2', label: 'Add SCSS and JS files if required' },
+                { id: '3', label: 'Stakeholder Meeting' },
+                { id: '4', label: 'Scoping & Estimations' },
+                { id: '5', label: 'Sprint Showcase' },
+              ]}
+            />
+          </Grid>
         </Grid>
         </div>
       </Container>
      
       </Box>
-}
     </>
     
   );

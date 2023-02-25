@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams , useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../../components/Header";
-import InsuranceClaims from "./InsuranceClaims";
-import InsurancePolicies from "./InsurancePolicies";
+import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useAuth } from "../../Auth";
 
 //Changes
 const ClaimsByPolicies = () => {
@@ -16,19 +15,20 @@ const ClaimsByPolicies = () => {
   const [email, setEmail] = useState([])
 
   const[claims, setClaims] = useState([]);
-  // const policyID = "1009"
-  const { policyID } = useParams();
 
+  const policyID = "1009"
+  const token = useAuth();
+  
   useEffect(()  =>{
     getClaims();
   },[])
 
-
-
   const getClaims = async () => {
-    const response = await axios.get("http://localhost:5001/getClaims/", {params:{insuranceId: policyID}});
+    const response = await axios.get("http://localhost:5001/getClaims/", {headers: { Authorization: `Bearer ${token}` }, params:{insuranceId: policyID}});
+    console.log("HELLo")
     setClaims(response.data);
   };
+  console.log(claims)
 
   useEffect(() => {
     setEmail(reactLocalStorage.getObject('user').email);

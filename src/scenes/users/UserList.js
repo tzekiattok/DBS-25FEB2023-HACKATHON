@@ -8,7 +8,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 
 const UserList = () => {
-
   const [users, setUser] = useState([]);
   const [email, setEmail] = useState([])
 

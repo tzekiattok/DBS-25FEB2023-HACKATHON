@@ -7,27 +7,18 @@ import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
-
+import { useAuth } from "../../Auth";
 
 const PolicyList = () => {
   const [policies, setPolicy] = useState([])
-  const [email, setEmail] = useState([])
-
-  /*
-  useEffect(() => {
-    setEmail(reactLocalStorage.getObject('user').email);
-    getUsers();
-  }, []);
-  */
+  const token = useAuth();
 
   useEffect(() => {
     getPolicies();
   },[]);
 
   const getPolicies = async () => {
-    // user = reactLocalStorage.getObject('user').userID
-    const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: 58001003 } });
-    // const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: user.userID } });
+    const response = await axios.get("http://localhost:5001/getPolicies", {headers: { Authorization: `Bearer ${token}` }});
     setPolicy(response.data);
   };
 

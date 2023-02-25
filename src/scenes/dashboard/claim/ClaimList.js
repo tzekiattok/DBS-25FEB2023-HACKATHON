@@ -3,15 +3,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
 import { reactLocalStorage } from "reactjs-localstorage";
-import { Box, Button, TextField, Grid, Container, } from "@mui/material";
+import { Box, Button, TextField, Grid, Container } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../components/Header";
 import jsonClaim from "./claims.json";
 import { DataGrid } from "@mui/x-data-grid";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 // components
-import Iconify from '../Icons';
-import "../dashboard.css"
+import Iconify from "../Icons";
+import "../dashboard.css";
 // sections
 import {
   AppTasks,
@@ -23,40 +23,41 @@ import {
   AppWidgetSummary,
   //AppCurrentSubject,
   //AppConversionRates,
-} from '../dashBoardDependencies';
+} from "../dashBoardDependencies";
+import { useAuth } from "../../../Auth";
 
 const ClaimList = () => {
   const [claims, setClaims] = useState([]);
-  const [data, setData] = useState([])
+  const token = useAuth();
+  const [summaryLoading, setSummaryLoading] = useState(true);
+  const [data, setData] = useState([
+    {
+      personalAccident: 0,
+      Housing: 0,
+      Car: 0,
+      Travel: 0,
+    },
+  ]);
   const theme = useTheme();
-  const email = reactLocalStorage.getObject('user').id;
+  const email = reactLocalStorage.getObject("user").id;
+  const employeeId = 58001001;
 
-  const getData = async () => {
-    console.log('email ->', email);
-    /*try {
-      const response = await axios.post(`http://localhost:5001/getDashboard`, {
-        email,
-      });
-      console.log('dashboard response',response)
-      setData(response.data[0])
-      console.log('data',data)
-      
-  }
-  catch(error){
-    console.log(error)
-  }*/
-  }
   useEffect(() => {
-    getUsers();
     getData();
   }, []);
 
-  const getUsers = async () => {
-    // const response = await axios.get("http://localhost:5001/listUsers");
-    // setClaims(response.data);
-    setClaims(jsonClaim);
-    console.log(jsonClaim);
-    console.log("hi");
+  const getData = async () => {
+    try {
+      console.log("Running dashboard data", employeeId);
+      const response = await axios.get(`http://localhost:5001/getAllClaims`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("dashboard data", response);
+      setClaims(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setSummaryLoading(false);
   };
 
   const deleteUser = async (id) => {
@@ -64,7 +65,6 @@ const ClaimList = () => {
       await axios.post(`http://localhost:5001/deleteUsers`, {
         id,
       });
-      getUsers();
     } catch (error) {
       console.log(error);
     }
@@ -73,45 +73,25 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
-  
-        <div className="dashboard-bg">
-          <Grid container spacing={3} >
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Weekly Sales" total={1} icon={'ant-design:android-filled'} />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="New Users" total={2} color="info" icon={'ic:baseline-account-balance-wallet'} />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Item Orders" total={3} color="warning" icon={'ant-design:windows-filled'} />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary title="Bug Reports" total={4} color="error" icon={'ant-design:bug-filled'} />
-            </Grid>
-          </Grid>
-        </div>
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>
             <DataGrid
               pagination
-              getRowId={(row) => row.ClaimID}
+              getRowId={(row) => row.claimid}
               rows={claims}
               columns={[
-                { field: "ClaimID", headerName: "ID" },
-                { field: "FirstName", headerName: "First Name" },
-                { field: "LastName", headerName: "Last Name" },
-                { field: "ExpenseDate", headerName: "Expense Date" },
-                { field: "Amount", headerName: "Amount" },
-                { field: "Purpose", headerName: "Purpose", width: 150 },
-                { field: "FollowUp", headerName: "Follow Up" },
-                { field: "PreviousClaimID", headerName: "Previous Claim ID" },
-                { field: "Status", headerName: "Status" },
+                { field: "claimid", headerName: "ID" },
+                { field: "firstName", headerName: "First Name" },
+                { field: "lastName", headerName: "Last Name" },
+                { field: "expensedate", headerName: "Expense Date" },
+                { field: "amount", headerName: "Amount" },
+                { field: "purpose", headerName: "Purpose", width: 150 },
+                { field: "followup", headerName: "Follow Up" },
+                { field: "previousclaimID", headerName: "Previous Claim ID" },
+                { field: "status", headerName: "Status" },
                 {
-                  field: "LastEditedClaimDate",
+                  field: "lasteditedclaimdate",
                   headerName: "Last Edited Claim Date",
                   width: 200,
                 },

@@ -105,7 +105,7 @@ app.post("/createAccount", (req, res) => {
 //Authenticate User login
 app.get("/listUsers", (req, res) => {
     console.log("getting all users");
-    const query = `SELECT * FROM users`;
+    const query = `SELECT * FROM InsuranceClaims`;
     console.log("executing...", query);
     db.query(query, (err, result) => {
         if (err) {
@@ -191,21 +191,23 @@ app.post("/getDashboard", (req, res) => {
 });
 
 // Deletes claims based on claim id
-app.post("/deleteClaim", (req, res) => {
+app.get("/deleteClaim", (req, res) => {
     console.log("deleting claim");
-    const claimId = req.body.claimId;
+    const claimId = req.query.claimId;
+    console.log("claimid", claimId);
 
-    const query = `DELETE FROM InsuranceClaims WHERE ClaimID = '${claimId}' AND Status = 'Pending'`;
+    const query = `DELETE FROM InsuranceClaims WHERE ClaimID = ${claimId} AND Status = 'Pending'`;
     console.log("executing...", query);
     db.query(query, (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            if (result.length > 0) {
+            if (result.affectedRows > 0) {
+                console.log(result);
                 res.send(result);
             } else {
                 console.log("No such pending claim found in DB");
-                res.send(result);
+                res.send("No such pending claim found in DB");
             }
         }
     });
@@ -238,11 +240,11 @@ app.post("/editClaim", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            if (result.length > 0) {
+            if (result.affectedRows > 0) {
                 res.send(result);
             } else {
                 console.log("No such pending or rejected claim found in DB");
-                res.send(result);
+                res.send("No such pending or rejected claim found in DB");
             }
         }
     });

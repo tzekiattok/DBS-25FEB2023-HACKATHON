@@ -39,7 +39,7 @@ dotenv.config();
 
 //Local host 5001 for backend
 //Local host 3000 for frontend
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(cookieParser());
 function authenticate(req, res, next) {

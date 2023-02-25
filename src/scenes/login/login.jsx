@@ -47,7 +47,7 @@ const Login = () => {
         console.log("successful verification");
         setJwtToken(response.data.token);
         console.log(jwtToken);
-        navigate("/list");
+        navigate("/claim");
       }
     } catch (error) {
       console.log(error);

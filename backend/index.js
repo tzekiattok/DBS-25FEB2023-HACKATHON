@@ -68,7 +68,7 @@ app.get("/getPolicies", (req, res) => {
 // Return list of claim records based on insuranceId
 app.get("/getClaims", (req, res) => {
     console.log("running query... getClaims");
-    const insuranceId = req.body.insuranceId;
+    const insuranceId = req.query.insuranceId;
     const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`;
     db.query(query, (err, result) => {
         if (err) {

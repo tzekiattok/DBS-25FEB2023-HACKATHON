@@ -89,46 +89,44 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
-      {!summaryLoading && (
-        <div className="dashboard-bg">
-          <Grid container spacing={3}>
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Personal Accident"
-                total={data[0].personalAccident}
-                icon={"ant-design:android-filled"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Car"
-                total={data[0].Car}
-                color="info"
-                icon={"ic:baseline-account-balance-wallet"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Travel"
-                total={data[0].Travel}
-                color="warning"
-                icon={"ant-design:windows-filled"}
-              />
-            </Grid>
-
-            <Grid item xs={6} sm={4} md={3}>
-              <AppWidgetSummary
-                title="Housing"
-                total={data[0].Housing}
-                color="error"
-                icon={"ant-design:bug-filled"}
-              />
-            </Grid>
+      <div className="dashboard-bg">
+        <Grid container spacing={3}>
+          <Grid item xs={6} sm={4} md={3}>
+            <AppWidgetSummary
+              title="Personal Accident"
+              total={data[0].personalAccident}
+              icon={"ant-design:android-filled"}
+            />
           </Grid>
-        </div>
-      )}
+
+          <Grid item xs={6} sm={4} md={3}>
+            <AppWidgetSummary
+              title="Car"
+              total={data[0].Car}
+              color="info"
+              icon={"ic:baseline-account-balance-wallet"}
+            />
+          </Grid>
+
+          <Grid item xs={6} sm={4} md={3}>
+            <AppWidgetSummary
+              title="Travel"
+              total={data[0].Travel}
+              color="warning"
+              icon={"ant-design:windows-filled"}
+            />
+          </Grid>
+
+          <Grid item xs={6} sm={4} md={3}>
+            <AppWidgetSummary
+              title="Housing"
+              total={data[0].Housing}
+              color="error"
+              icon={"ant-design:bug-filled"}
+            />
+          </Grid>
+        </Grid>
+      </div>
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>

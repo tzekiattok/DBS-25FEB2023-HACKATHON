@@ -43,7 +43,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard1" element={<DashboardAppPage />} />
               <Route path="/claim" element={<ClaimList />} />
-              <Route path="add" element={<AddUser />} />
+              <Route path="/policy/add" element={<AddUser />} />
               <Route path="edit/:id" element={<EditUser />} />
               <Route path="page1" element={<Page1 />} />
               <Route path="page2" element={<Page2 />} />

@@ -76,33 +76,21 @@ const ClaimList = () => {
   
         <div className="dashboard-bg">
           <Grid container spacing={3} >
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Weekly Sales" total={data['item1']} icon={'ant-design:android-filled'} />
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Weekly Sales" total={1} icon={'ant-design:android-filled'} />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ic:baseline-account-balance-wallet'} />
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="New Users" total={2} color="info" icon={'ic:baseline-account-balance-wallet'} />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Item Orders" total={data['item3']} color="warning" icon={'ant-design:windows-filled'} />
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Item Orders" total={3} color="warning" icon={'ant-design:windows-filled'} />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Bug Reports" total={data['item4']} color="error" icon={'ant-design:bug-filled'} />
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Bug Reports" total={4} color="error" icon={'ant-design:bug-filled'} />
             </Grid>
-
-            <Grid item xs={12} md={6} lg={8}>
-            </Grid>
-
-            <Grid item xs={12} md={6} lg={8}>
-            </Grid>
-
-            <Grid item xs={12} md={6} lg={4}>
-
-            </Grid>
-
-
           </Grid>
         </div>
       <div className="columns mt-5 is-centered">

@@ -8,7 +8,10 @@ import { fShortenNumber } from '../utils/formatNumber';
 // components
 import Iconify from '../Icons';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import PendingIcon from '@mui/icons-material/Pending';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 // ----------------------------------------------------------------------
 
 const StyledIcon = styled('div')(({ theme }) => ({

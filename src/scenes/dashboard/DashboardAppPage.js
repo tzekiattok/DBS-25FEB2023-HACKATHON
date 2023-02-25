@@ -36,12 +36,12 @@ export default function DashboardAppPage() {
   const getData =  async () =>{
     console.log('email ->',email);
     try {
-      const response = await axios.post(`http://localhost:5001/getDashboard`, {
+      /*const response = await axios.post(`http://localhost:5001/getDashboard`, {
         email,
       });
       console.log('dashboard response',response)
       setData(response.data[0])
-      console.log('data',data)
+      console.log('data',data)*/
   }
   catch(error){
     console.log(error)
@@ -60,19 +60,19 @@ export default function DashboardAppPage() {
       <div className ="dashboard-bg">
         <Grid container spacing={3} >
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={data['item1']} icon={'ant-design:android-filled'} />
+            <AppWidgetSummary title="Approved" total={71} icon={'material-symbols:order-approve'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ic:baseline-account-balance-wallet'} />
+            <AppWidgetSummary title="Pending" total={55} color="info" icon={'material-symbols:pending'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={data['item3']} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary title="Rejected" total={12} color="warning" icon={'fluent:text-change-reject-20-filled'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={data['item4']} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary title="Total" total={69} color="error" icon={'clarity:form-line'} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
@@ -228,18 +228,6 @@ export default function DashboardAppPage() {
             */}
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <AppTasks
-              title="Tasks"
-              list={[
-                { id: '1', label: 'Create FireStone Logo' },
-                { id: '2', label: 'Add SCSS and JS files if required' },
-                { id: '3', label: 'Stakeholder Meeting' },
-                { id: '4', label: 'Scoping & Estimations' },
-                { id: '5', label: 'Sprint Showcase' },
-              ]}
-            />
-          </Grid>
         </Grid>
         </div>
       </Container>

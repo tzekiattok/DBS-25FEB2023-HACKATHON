@@ -169,5 +169,20 @@ app.get("/editClaim", (req, res) => {
     });
 });
 
+app.get("/getClaimsSummary", (req, res) => {
+    console.log("getting claims summary");
+    const employeeId = req.query.employeeId;
+    const query = `SELECT InsuranceType, COUNT(*) AS count FROM InsurancePolicies WHERE EmployeeID = ${employeeId} GROUP BY InsuranceType`;
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
 //Backend Listens to port 5001, your axios calls should be localhost:5001
 app.listen(5001, () => console.log("Server up and running... on port 5001"));

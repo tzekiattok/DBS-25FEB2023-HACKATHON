@@ -55,7 +55,7 @@ const Login = () => {
             }
           } catch (error) {
             console.log(error);
-          }        
+          }
     }
     //Signup function
     const signUp = async () =>{

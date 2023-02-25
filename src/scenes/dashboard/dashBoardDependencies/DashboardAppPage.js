@@ -25,7 +25,9 @@ import {
   //AppCurrentSubject,
   //AppConversionRates,
 } from './dashBoardDependencies';
+
 // ----------------------------------------------------------------------
+
 export default function DashboardAppPage() {
   const [data,setData] =useState([])
   const theme = useTheme();
@@ -40,28 +42,23 @@ export default function DashboardAppPage() {
       console.log('dashboard response',response)
       setData(response.data[0])
       console.log('data',data)*/
-      console.log('setting data')
-      setData( [
-        {
+      setData( [{
         approved:77,
         rejected:55,
         pending: 60,
         total: 100,
-      }
-    ])
+      }])
 
   }
   catch(error){
     console.log(error)
   }
 }
-useEffect(() => {
+  useEffect(() => {
     getData();
   }, []);
   return (
-    
     <>
-    {data[0] !=={}&&
     <Box m="20px" >
         <title> Dashboard | Minimal UI </title>
       
@@ -238,13 +235,11 @@ useEffect(() => {
             */}
           </Grid>
 
-          
         </Grid>
         </div>
       </Container>
      
       </Box>
-}
     </>
     
   );

@@ -190,7 +190,29 @@ app.post("/getDashboard", (req, res) => {
     });
 });
 
+// Deletes claims based on claim id
 app.post("/deleteClaim", (req, res) => {
+    console.log("deleting claim");
+    const claimId = req.body.claimId;
+
+    const query = `DELETE FROM InsuranceClaims WHERE ClaimID = '${claimId}' AND Status = 'Pending'`;
+    console.log("executing...", query);
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                console.log("No such pending claim found in DB");
+                res.send(result);
+            }
+        }
+    });
+});
+
+// Edit claims based on claim id
+app.post("/editClaim", (req, res) => {
     console.log("deleting claim");
     const claimId = req.body.claimId;
     const query = `DELETE FROM InsuranceClaims WHERE ClaimID = '${claimId}'`;

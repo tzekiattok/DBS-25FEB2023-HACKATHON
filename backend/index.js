@@ -108,25 +108,6 @@ app.post("/createClaim", (req, res) => {
     });
 });
 
-//Insert User
-app.post("/createAccount", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const query = `INSERT INTO accounts (email, password) VALUES ('${email}', '${password}')`;
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(400);
-            res.send(err);
-        } else {
-            console.log("Account created");
-            console.log("result", result);
-            res.status(200);
-            res.send(result);
-        }
-    });
-});
-
 // Deletes claims based on claim id
 app.get("/deleteClaim", (req, res) => {
     console.log("deleting claim");
@@ -143,7 +124,7 @@ app.get("/deleteClaim", (req, res) => {
                 console.log(result);
                 res.send(result);
             } else {
-                console.log("No such pending claim found in DB");
+                console.log(result);
                 res.send("No such pending claim found in DB");
             }
         }
@@ -151,36 +132,37 @@ app.get("/deleteClaim", (req, res) => {
 });
 
 // Edit claims based on claim id
-app.post("/editClaim", (req, res) => {
+app.get("/editClaim", (req, res) => {
     console.log("deleting claim");
-    const claimId = req.body.claimId;
-    const insuranceId = req.body.insuranceId;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const expenseData = req.body.expenseDate;
-    const amount = req.body.amount;
-    const purpose = req.body.purpose;
-    const followUp = req.body.followUp;
-    const previousClaimId = req.body.previousClaimId;
+    const claimId = req.query.claimId;
+    const insuranceId = req.query.insuranceId;
+    const firstName = req.query.firstName;
+    const lastName = req.query.lastName;
+    const expenseDate = req.query.expenseDate;
+    const amount = req.query.amount;
+    const purpose = req.query.purpose;
+    const followUp = req.query.followUp;
+    const previousClaimId = req.query.previousClaimId;
     const query = `UPDATE InsuranceClaims SET 
-        insuranceId = '${insuranceId}', 
+        insuranceId = ${insuranceId},
         firstName = '${firstName}',
         lastName = '${lastName}',
-        expenseData = '${expenseData}',
+        expenseDate = '${expenseDate}'
         amount = '${amount}',
         purpose = '${purpose}',
-        followUp = '${followUp}',
-        previousCLaimId = '${previousClaimId}',
-        LastEditedClaimDate = CURRENT_TIMESTAMP() WHERE ClaimID = '${claimId}' AND (Status = 'Pending' OR Status = 'Rejected')`;
+        followUp = ${followUp},
+        previousClaimId = ${previousClaimId},
+        LastEditedClaimDate = CURRENT_TIMESTAMP() WHERE ClaimID = ${claimId} AND (Status = 'Pending' OR Status = 'Rejected')`;
     console.log("executing...", query);
     db.query(query, (err, result) => {
         if (err) {
             console.log(err);
         } else {
             if (result.affectedRows > 0) {
+                console.log(result);
                 res.send(result);
             } else {
-                console.log("No such pending or rejected claim found in DB");
+                console.log(result);
                 res.send("No such pending or rejected claim found in DB");
             }
         }

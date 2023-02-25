@@ -3,17 +3,52 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
 import { reactLocalStorage } from "reactjs-localstorage";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Grid, Container, } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../components/Header";
 import jsonClaim from "./claims.json";
 import { DataGrid } from "@mui/x-data-grid";
+import { useTheme } from '@mui/material/styles';
+// components
+import Iconify from '../Icons';
+import "../dashboard.css"
+// sections
+import {
+  AppTasks,
+  //AppNewsUpdate,
+  //AppOrderTimeline,
+  //AppCurrentVisits,
+  //AppWebsiteVisits,
+  //AppTrafficBySite,
+  AppWidgetSummary,
+  //AppCurrentSubject,
+  //AppConversionRates,
+} from '../dashBoardDependencies';
 
 const ClaimList = () => {
   const [claims, setClaims] = useState([]);
+  const [data, setData] = useState([])
+  const theme = useTheme();
+  const email = reactLocalStorage.getObject('user').id;
 
+  const getData = async () => {
+    console.log('email ->', email);
+    /*try {
+      const response = await axios.post(`http://localhost:5001/getDashboard`, {
+        email,
+      });
+      console.log('dashboard response',response)
+      setData(response.data[0])
+      console.log('data',data)
+      
+  }
+  catch(error){
+    console.log(error)
+  }*/
+  }
   useEffect(() => {
     getUsers();
+    getData();
   }, []);
 
   const getUsers = async () => {
@@ -38,6 +73,26 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
+  
+        <div className="dashboard-bg">
+          <Grid container spacing={3} >
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Weekly Sales" total={1} icon={'ant-design:android-filled'} />
+            </Grid>
+
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="New Users" total={2} color="info" icon={'ic:baseline-account-balance-wallet'} />
+            </Grid>
+
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Item Orders" total={3} color="warning" icon={'ant-design:windows-filled'} />
+            </Grid>
+
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary title="Bug Reports" total={4} color="error" icon={'ant-design:bug-filled'} />
+            </Grid>
+          </Grid>
+        </div>
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>

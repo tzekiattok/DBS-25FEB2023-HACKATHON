@@ -36,15 +36,17 @@ function App() {
             {/*pathname !== '/' && pathname !=='/signup' && pathname !=='/resetPassword' &&  <Topbar/>*/}
             <Routes>
               {/* Authenticated Route -> Redirects user to landing page IF they are authenticated*/}
-              <Route path="/" element={<Login/>} />
-                <Route path="/dashboard" element={<Dashboard/>} />
-                <Route path="/dashboard1" element={<DashboardAppPage/>} />
-                <Route path="/list" element={<UserList/>} />
-                <Route path="add" element={<AddUser/>} />
-                <Route path="edit/:id" element={<EditUser/>} />
-                <Route path="page1" element={<Page1/>} />
-                <Route path="page2" element={<Page2/>} />
-                <Route path="page3" element={<Page3/>} />
+              <Route path="/" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard1" element={<DashboardAppPage />} />
+              <Route path="/claim" element={<ClaimList />} />
+              <Route path="/policy/add" element={<AddUser />} />
+              <Route path="edit/:id" element={<EditUser />} />
+              <Route path="/policy" element={<PolicyList/>} />
+              <Route path="/policy/:policyID" element={<ClaimsByPolicies/>} />
+              <Route path="page1" element={<Page1 />} />
+              <Route path="page2" element={<Page2 />} />
+              <Route path="page3" element={<Page3 />} />
             </Routes>
           </main>
         </div>

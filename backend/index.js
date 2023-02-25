@@ -38,7 +38,7 @@ const db = mysql.createConnection({
     user: "root", //default
     host: "localhost", //default
     password: "", //default
-    database: "crud_db", //to be updated
+    database: "InsuranceData", //to be updated
 });
 
 db.connect(function (err) {
@@ -245,6 +245,25 @@ app.post("/getDashboard", (req, res) => {
                 res.send(result);
             } else {
                 console.log("No account found in DB");
+                res.send(result);
+            }
+        }
+    });
+});
+
+app.post("/deleteClaim", (req, res) => {
+    console.log("deleting claim");
+    const claimId = req.body.claimId;
+    const query = `DELETE FROM InsuranceClaims WHERE ClaimID = '${claimId}'`;
+    console.log("executing...", query);
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                console.log("No claim found in DB");
                 res.send(result);
             }
         }

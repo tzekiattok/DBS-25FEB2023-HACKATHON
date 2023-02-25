@@ -68,19 +68,19 @@ const Login = () => {
         console.log('password:', signUpPassword)
         console.log('confirm password:', signUpConfirmPassword)
 
-            /* const response = await axios.post("http://localhost:5001/createAccount", {
-              firstName:signUpFirstName,
-
-              password:signUpPassword
-            });
+        const response = await axios.post("http://localhost:5001/createAccount", {
+        firstName:signUpFirstName,
+        lastName:signUpLastName,
+        age:signUpAge,
+        password:signUpPassword,
+        });
             console.log('response,',response)
             setErrorSignUp("Successfully registered");
             navigate("/");
-          } catch (error) {
-            setErrorSignUp("Email is already registered");
-            console.log(error);
-            */
-          }
+         } 
+       
+
+
           
     
     return (

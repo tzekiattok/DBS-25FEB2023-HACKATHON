@@ -142,7 +142,7 @@ app.get("/createClaim", (req, res) => {
             const followUp = req.query.followUp;
             const prevClaimId = req.query.prevClaimId;
             const status = "Pending"; // everytime create new claim -> status is pending
-            const lastEditedClaimDate = new String(Date());
+            // const lastEditedClaimDate = new String(Date());
             
 
             // checking if followUp = 0 and return NULL for prevClaimId
@@ -154,7 +154,7 @@ app.get("/createClaim", (req, res) => {
             }else{
                 query = `INSERT INTO insuranceclaims 
             (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
-            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', CURRENT_TIMESTAMP())`;
             }
             console.log(claimId);
             console.log(req.query);

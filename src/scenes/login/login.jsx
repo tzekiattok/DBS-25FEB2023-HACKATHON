@@ -47,6 +47,7 @@ const Login = () => {
                 console.log(response);
                 console.log('successful verification');
                 reactLocalStorage.setObject('user', {'id': loginId});
+                
                 navigate("/list");
             }
           } catch (error) {

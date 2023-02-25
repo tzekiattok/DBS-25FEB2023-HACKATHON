@@ -17,37 +17,29 @@ const ClaimsByPolicies = () => {
 
   const[claims, setClaims] = useState([]);
 
-  const claimID = "1009"
+  const policyID = "1009"
 
-  useEffect(() =>{
-    const relevantclaims = InsuranceClaims.filter((index) => {
-        if (index.InsuranceID == claimID) {
-            return index
-        }
-    })
-    setClaims(relevantclaims)
+  useEffect(()  =>{
+    getClaims();
   },[])
 
+  const getClaims = async () => {
+    const response = await axios.get("http://localhost:5001/getClaims/", {params:{insuranceId: policyID}});
+    console.log("HELLo")
+    setClaims(response.data);
+  };
+  console.log(claims)
 
   useEffect(() => {
     setEmail(reactLocalStorage.getObject('user').email);
-    getUsers();
   }, []);
-
-
-  
-
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:5001/listUsers");
-    setUser(response.data);
-  };
 
   const deleteClaims = async (id) => {
     try {
-      await axios.post(`http://localhost:5001/deleteClaims`,{
+      await axios.post(`http://localhost:5001/deleteClaim`,{
         id
       });
-      getUsers();
+      // getUsers();
     } catch (error) {
       console.log(error);
     }

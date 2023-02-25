@@ -8,14 +8,14 @@ import Header from "../../components/Header";
 
 const AddUser = () => {
   // const [claimId, setClaimId] = useState("");
-  const [insuranceId, setInsuranceId] = useState("");
+  const [insuranceId, setInsuranceId] = useState("1008");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [expenseDate, setExpenseDate] = useState("");
-  const [amount, setAmount] = useState("");
+  const [expenseDateInput, setExpenseDate] = useState("");
+  const [claimAmt, setAmount] = useState("");
   const [purpose, setPurpose] = useState("");
   const [followUp, setFollowUp] = useState("");
-  const [previousClaimId, setPreviousClaimId] = useState("");
+  const [prevClaimId, setPreviousClaimId] = useState("");
   // const [status, setStatus] = useState("");
   // const [lastEditedClaimDate, setLastEditedClaimDate] = useState("");
   const navigate = useNavigate();
@@ -23,25 +23,29 @@ const AddUser = () => {
   const saveUser = async (e) => {
     e.preventDefault();
 
-    console.log(expenseDate)
+    // console.log(expenseDate)
     var offset = new Date().getTimezoneOffset() / -60; // 7
-    const expenseDateFormatted = expenseDate + "+0" + offset + ":00";
-    console.log(expenseDateFormatted)
-    
+    const expenseDate = expenseDateInput + "+0" + offset + ":00";
+    // console.log(expenseDateFormatted)
+    console.log('saving')
     try {
-      await axios.post("http://localhost:5001/createClaim", {
+      console.log(insuranceId)
+      console.log(expenseDate)
+      const body = {
         // claimId,
         insuranceId,
         firstName,
         lastName,
-        expenseDate,
-        amount,
+        // expenseDate,
+        claimAmt,
         purpose,
         followUp,
-        previousClaimId,
+        prevClaimId,
         // status,
         // lastEditedClaimDate,
-      }).then(response => console.log(response,"response..."))
+      }
+      console.log(body)
+      await axios.post("http://localhost:5001/createClaim", {}, {params:body}).then(response => console.log(response,"response..."))
       navigate("/list");
     } catch (error) {
       console.log(error);
@@ -109,7 +113,7 @@ const AddUser = () => {
             <input
                 type="datetime-local"
                 className="input"
-                value={expenseDate}
+                value={expenseDateInput}
                 onChange={(e) => setExpenseDate(e.target.value)}
                 placeholder="ExpenseDate"
               />
@@ -131,7 +135,7 @@ const AddUser = () => {
               <input
                 type="number"
                 className="input"
-                value={amount}
+                value={claimAmt}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
               />
@@ -176,7 +180,7 @@ const AddUser = () => {
               <input
                 type="number"
                 className="input"
-                value={previousClaimId}
+                value={prevClaimId}
                 onChange={(e) => setPreviousClaimId(e.target.value)}
                 placeholder="PreviousClaimId"
               />

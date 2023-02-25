@@ -52,7 +52,7 @@ const ClaimsByPolicies = () => {
   return (
     <Box m="20px" className = "chatbotBox">
     <Header title="Policy ID" subtitle="Displaying all claims" />
-    <Link to={`/add`} className="button is-success">
+    <Link to={`/policy/${policyID}/add`} className="button is-success">
           Add
         </Link>
         <div className="columns mt-5 is-centered">

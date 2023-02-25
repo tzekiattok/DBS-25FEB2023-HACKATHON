@@ -158,6 +158,7 @@ app.get("/listUsers",(req,res)=>{
 })
 // Return list of claim records based on insuranceId
 app.get("/getClaims", (req, res) => {
+    console.log('test')
     console.log("running query... getClaims");
     const insuranceId = req.query.insuranceId;
     const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`;
@@ -215,6 +216,7 @@ app.get("/getPolicySummary", (req, res) => {
 
 //Insert Claim
 app.get("/createClaim", (req, res) => {
+    console.log('creating')
     // to get the prev max id -> to generate claimId
     const query1 = `SELECT max(ClaimID) as maxClaimID FROM insuranceclaims`;
     db.query(query1, (err, result1) => {

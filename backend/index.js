@@ -47,8 +47,10 @@ db.connect(function (err) {
 });
 
 //################################################################### BACKEND CALLS #############################################################################################
+
+const startClaimId = 2030;
+
 // Return list of policies based on employeeId
-// TO DO: INPUT THE EMPLOYEE ID GIVEN
 app.get("/getPolicies", (req, res) => {
     console.log("running query... getPolicies");
     const employeeId = req.query.employeeId;
@@ -78,34 +80,64 @@ app.get("/getClaims", (req, res) => {
     });
 });
 
-//Insert User
-app.post("/createClaim", (req, res) => {
-    const employeeId = req.body.employeeId;
-    const insuranceId = req.body.insuranceId;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const date = req.body.date;
-    const claimAmt = req.body.claimAmt;
-    const purpose = req.body.purpose;
-    const followUp = req.body.followUp;
-    const prevClaimId = req.body.prevClaimId;
-    const status = "Pending"; // everytime create new claim -> status is pending
-    const lastEditedClaimDate = new String(Date());
-    const query = `INSERT INTO insuranceclaims 
-    (employeeId, insuranceId, firstName, lastName, date, claimAmt, purpose, followUp, prevClaimId, status, lastEditedClaimDate) VALUES 
-    ('${employeeId}', '${insuranceId}', '${firstName}', '${lastName}', '${date}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
-    db.query(query, (err, result) => {
+//Insert Claim
+app.get("/createClaim", (req, res) => {
+    // to get the prev max id -> to generate claimId
+    const query1 = `SELECT max(ClaimID) as maxClaimID FROM insuranceclaims`;
+    db.query(query1, (err, result1) => {
         if (err) {
             console.log(err);
-            res.status(400);
-            res.send(err);
         } else {
-            console.log("Claim created");
-            console.log("result", result);
-            res.status(200);
-            res.send(result);
-        }
+            console.log("results");
+            console.log(result1[0].maxClaimID)
+            // res.send(result1);
+            const prevId = result1[0].maxClaimID
+
+            const claimId = prevId + 1; // auto-generated
+            const insuranceId = req.query.insuranceId;
+            const firstName = req.query.firstName;
+            const lastName = req.query.lastName;
+            // const expenseDate = req.query.date;
+            const expenseDate = new String(Date())
+            const claimAmt = req.query.claimAmt;
+            const purpose = req.query.purpose;
+            const followUp = req.query.followUp;
+            const prevClaimId = req.query.prevClaimId;
+            const status = 'Pending' // everytime create new claim -> status is pending
+            const lastEditedClaimDate = new String(Date());
+            const query = `INSERT INTO insuranceclaims 
+            (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, PreviousClaimID, Status, LastEditedClaimDate) VALUES 
+            ('${claimId}', '${insuranceId}', '${firstName}', '${lastName}', '${expenseDate}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
+            
+            console.log(claimId)
+            console.log(req.query)
+            console.log(query)
+
+            db.query(query, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(400);
+                    res.send(err);
+                } else {
+                    if (result.length > 0) {
+                        //ALWAYS check the length of the result, else it would show an exception error
+                        console.log("Claim created");
+                        console.log("result", result);
+                        res.send(result);
+                    } else {
+                        console.log("No account found in DB");
+                        res.send(result);
+                    }
+                    // console.log("Claim created");
+                    // console.log("result", result);
+                    // res.status(200);
+                    // res.send(result);
+                }
+            });
+                }
     });
+
+    
 });
 
 // Deletes claims based on claim id

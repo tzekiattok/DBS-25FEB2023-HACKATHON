@@ -68,7 +68,7 @@ app.get("/getPolicies", (req, res) => {
 // Return list of claim records based on insuranceId
 app.get("/getClaims", (req, res) => {
     console.log("running query... getClaims");
-    const insuranceId = req.body.insuranceId;
+    const insuranceId = req.query.insuranceId;
     const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`;
     db.query(query, (err, result) => {
         if (err) {
@@ -139,8 +139,8 @@ app.get("/createClaim", (req, res) => {
             const insuranceId = req.query.insuranceId;
             const firstName = req.query.firstName;
             const lastName = req.query.lastName;
-            // const expenseDate = req.query.date;
-            const expenseDate = new String(Date());
+            const expenseDate = req.query.expenseDate;
+            // const expenseDate = new String(Date())
             const claimAmt = req.query.claimAmt;
             const purpose = req.query.purpose;
             const followUp = req.query.followUp;

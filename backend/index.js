@@ -215,8 +215,24 @@ app.post("/deleteClaim", (req, res) => {
 app.post("/editClaim", (req, res) => {
     console.log("deleting claim");
     const claimId = req.body.claimId;
-    const alteredFields = req.body.alteredFields;
-    const query = `UPDATE InsuranceClaims SET '${alteredFields}' WHERE ClaimID = '${claimID}' AND (Status = 'Pending' OR Status = 'Rejected')`;
+    const insuranceId = req.body.insuranceId;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const expenseData = req.body.expenseDate;
+    const amount = req.body.amount;
+    const purpose = req.body.purpose;
+    const followUp = req.body.followUp;
+    const previousClaimId = req.body.previousClaimId;
+    const query = `UPDATE InsuranceClaims SET 
+        insuranceId = '${insuranceId}', 
+        firstName = '${firstName}',
+        lastName = '${lastName}',
+        expenseData = '${expenseData}',
+        amount = '${amount}',
+        purpose = '${purpose}',
+        followUp = '${followUp}',
+        previousCLaimId = '${previousClaimId}',
+        LastEditedClaimDate = CURRENT_TIMESTAMP() WHERE ClaimID = '${claimId}' AND (Status = 'Pending' OR Status = 'Rejected')`;
     console.log("executing...", query);
     db.query(query, (err, result) => {
         if (err) {
@@ -225,7 +241,7 @@ app.post("/editClaim", (req, res) => {
             if (result.length > 0) {
                 res.send(result);
             } else {
-                console.log("No claim found in DB");
+                console.log("No such pending or rejected claim found in DB");
                 res.send(result);
             }
         }

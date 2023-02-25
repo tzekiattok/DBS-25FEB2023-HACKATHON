@@ -5,7 +5,7 @@ import "bulma/css/bulma.css";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { Box, Button, TextField } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import InsuranceClaims from "./InsuranceClaims";
 import InsurancePolicies from "./InsurancePolicies";
 

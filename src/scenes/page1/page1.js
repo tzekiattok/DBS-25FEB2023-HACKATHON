@@ -7,9 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 const Page1 = () => {
-    return(<Box m="20px" className = "chatbotBox">
-    <Header title="Page title" subtitle="Page subtitle" />
 
-    </Box>)
+    const getClaimsRecords = async () => {
+        const response = await axios.get("http://localhost:5001/getClaimsRecords");;
+        console.log(response.data)
+      };
+
+
+    return(
+    <div>
+        <button onClick={getClaimsRecords}>click</button>
+    </div>
+    )
 }
 export default Page1;

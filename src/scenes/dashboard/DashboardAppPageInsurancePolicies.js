@@ -25,8 +25,10 @@ import {
   //AppCurrentSubject,
   //AppConversionRates,
 } from './dashBoardDependencies';
+
 // ----------------------------------------------------------------------
-export default function DashboardAppPage() {
+
+export default function DashboardAppPage1() {
   const [data,setData] =useState([])
   const theme = useTheme();
   const email = reactLocalStorage.getObject('user').id;
@@ -34,22 +36,21 @@ export default function DashboardAppPage() {
   const getData =  async () =>{
     console.log('email ->',email);
     try {
-      /*const response = await axios.post(`http://localhost:5001/getClaimsSummary`, {
+      /*const response = await axios.post(`http://localhost:5001/getPolicySummary`, {
         id,
       });
       console.log('dashboard response',response)
       setData(response.data[0])
       console.log('data',data)*/
-      console.log('setting data')
       setData( [
         {
-        approved:77,
-        rejected:55,
-        pending: 60,
-        total: 100,
+        PersonalAccident:77,
+        Housing:55,
+        Car: 0,
+        Travel: 100,
+        Total: 100
       }
     ])
-
   }
   catch(error){
     console.log(error)
@@ -62,6 +63,7 @@ useEffect(() => {
     
     <>
     {data[0] !=={}&&
+
     <Box m="20px" >
         <title> Dashboard | Minimal UI </title>
       
@@ -70,17 +72,19 @@ useEffect(() => {
       <div className ="dashboard-bg">
         <Grid container spacing={3} >
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Approved" total={data[0].approved} icon={'material-symbols:order-approve'} />
+            <AppWidgetSummary title="Approved" total={data[0].PersonalAccident} icon={'material-symbols:order-approve'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Pending" total={data[0].rejected} color="info" icon={'material-symbols:pending'} />
+            <AppWidgetSummary title="Pending" total={data[0].Car} color="info" icon={'material-symbols:pending'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Rejected" total={data[0].pending} color="warning" icon={'fluent:text-change-reject-20-filled'} />
+            <AppWidgetSummary title="Rejected" total={data[0].Housing} color="warning" icon={'fluent:text-change-reject-20-filled'} />
           </Grid>
-
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Total" total={data[0].Travel} color="error" icon={'clarity:form-line'} />
+          </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Total" total={data[0].total} color="error" icon={'clarity:form-line'} />
           </Grid>
@@ -243,8 +247,10 @@ useEffect(() => {
       </Container>
      
       </Box>
+
 }
-    </>
+</>
+    
     
   );
 }

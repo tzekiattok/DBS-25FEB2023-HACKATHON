@@ -80,7 +80,7 @@ const Login = () => {
             console.log('response,',response)
             setErrorSignUp("Successfully registered");
             navigate("/");
-         } 
+        }
        
 
 

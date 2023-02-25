@@ -152,7 +152,7 @@ app.post("/createAccount", async (req, res) => {
 });
 
 // Return list of claim records based on insuranceId
-app.get("/getClaims", authenticate, (req, res) => {
+app.get("/getClaims", (req, res) => {
   console.log("running query... getClaims");
   const insuranceId = req.query.insuranceId;
   const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`;

@@ -13,6 +13,8 @@ import EditUser from "./scenes/users/EditUser";
 import Page1 from "./scenes/page1/page1";
 import Page2 from "./scenes/page2/page2";
 import Page3 from "./scenes/page3/page3";
+import ProtectedRoute from "./scenes/protectedRoutes/protectedRoutes";
+import AuthProvider from "./Auth";
 import ClaimList from "./scenes/dashboard/claim/ClaimList";
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <AuthProvider>
+
         <div className="app">
           {/* hide sidebar in login page and signin */}
           {pathname !== "/" &&
@@ -51,6 +55,8 @@ function App() {
             </Routes>
           </main>
         </div>
+        </AuthProvider>
+
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

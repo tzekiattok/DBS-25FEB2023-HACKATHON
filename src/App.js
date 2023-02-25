@@ -41,12 +41,12 @@ function App() {
               <Route path="/" element={<Login/>} />
                 <Route path="/dashboard" element={<Dashboard/>} />
                 <Route path="/dashboard1" element={<DashboardAppPage/>} />
-                <Route path="/policy/id" element={<ClaimsByPolicies/>} />
+                {/* <Route path="/policy/id" element={<ClaimsByPolicies/>} /> */}
                 <Route path="add" element={<AddUser/>} />
                 <Route path="edit/:id" element={<EditUser/>} />
                 <Route path="/policy" element={<PolicyList/>} />
-                <Route path="/policy/:id" element={<ClaimsByPolicies/>} />
-                <Route path="page3" element={<Page3/>} />
+                <Route path="/policy/:policyID" element={<ClaimsByPolicies/>} />
+                {/* <Route path="page3" element={<Page3/>} /> */}
             </Routes>
           </main>
         </div>

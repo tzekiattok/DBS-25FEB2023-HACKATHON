@@ -22,12 +22,11 @@ const PolicyList = () => {
 
   useEffect(() => {
     getPolicies();
-  });
+  },[]);
 
   const getPolicies = async () => {
     // user = reactLocalStorage.getObject('user').userID
     const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: 58001003 } });
-    console.log(response)
     // const response = await axios.get("http://localhost:5001/getPolicies", { params: { employeeId: user.userID } });
     setPolicy(response.data);
   };

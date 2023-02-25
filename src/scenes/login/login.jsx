@@ -342,7 +342,6 @@ const Login = () => {
                                         email: this.state.signUpForm.email
                                     }
                                 })}*/
-<<<<<<< HEAD
                   onChange={(event) =>
                     setSignUpConfirmPassword(event.target.value)
                   }
@@ -386,45 +385,12 @@ const Login = () => {
                   placeholder="EmployeeID"
                   onChange={(event) => setLoginId(event.target.value)}
                   /*value={this.state.signInForm.email}
-=======
-                                onChange = {(event)=> setSignUpConfirmPassword(event.target.value)}
-                                required />
-                            <button
-                                className="login__create-container__form-container__form--submit">
-                                Sign Up
-                            </button>
-                        </form>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={`login__login-container ${!thisState? 'login__login-container--active' : 'login__login-container--inactive'}`}>
-                    <div className = "login__login-container__box">
-                    <div className="login__login-container__box__logo-container">
-                        DBS app
-                    </div>
-                    <div className="login__login-container__main-container">
-                        <span className="login__login-container__main-container--info-text">or use email for your login</span>
-                        <span className = 'error_login'>{errorLogin}</span>
-                        <div className="login__login-container__main-container__form-container">
-                            <form className="login__login-container__main-container__form-container__form" onSubmit={(e) => {
-                                e.preventDefault();
-                                signIn();
-                            }}>
-                                <input
-                                    className="login__login-container__main-container__form-container__form--email"
-                                    type="email"
-                                    placeholder="Email"
-                                    onChange = {(event)=> setLoginEmail(event.target.value)}
-                                    /*value={this.state.signInForm.email}
->>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
                                     onChange={(value) => this.setState({
                                         signInForm: {
                                             email: value.target.value,
                                             password: this.state.signInForm.password
                                         }
                                     })}*/
-<<<<<<< HEAD
                   required
                 />
 
@@ -433,14 +399,6 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   /*value={this.state.signInForm.password}
-=======
-                                    required />
-                                <input
-                                    className="login__login-container__main-container__form-container__form--password"
-                                    type="password"
-                                    placeholder="Password"
-                                    /*value={this.state.signInForm.password}
->>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
                                     onChange={(value) => this.setState({
                                         signInForm: {
                                             password: value.target.value,

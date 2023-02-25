@@ -1,97 +1,113 @@
 //https://codeload.github.com/minimal-ui-kit/material-kit-react/zip/refs/heads/main
 //https://mui.com/store/items/minimal-dashboard-free/
 
-import { Helmet } from 'react-helmet-async';
-import { faker } from '@faker-js/faker';
+import { Helmet } from "react-helmet-async";
+import { faker } from "@faker-js/faker";
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography,Box } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+import { Grid, Container, Typography, Box } from "@mui/material";
 import Header from "../../components/Header";
 import axios from "axios";
 // components
 import React, { useState, useEffect } from "react";
 import { reactLocalStorage } from "reactjs-localstorage";
-import Iconify from './Icons';
-import "./dashboard.css"
+import Iconify from "./Icons";
+import "./dashboard.css";
 // sections
 import {
-  AppTasks,
-  //AppNewsUpdate,
-  //AppOrderTimeline,
-  //AppCurrentVisits,
-  //AppWebsiteVisits,
-  //AppTrafficBySite,
-  AppWidgetSummary,
-  //AppCurrentSubject,
-  //AppConversionRates,
-} from './dashBoardDependencies';
+    AppTasks,
+    //AppNewsUpdate,
+    //AppOrderTimeline,
+    //AppCurrentVisits,
+    //AppWebsiteVisits,
+    //AppTrafficBySite,
+    AppWidgetSummary,
+    //AppCurrentSubject,
+    //AppConversionRates,
+} from "./dashBoardDependencies";
 
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
-  const [data,setData] =useState([])
-  const theme = useTheme();
-  const email = reactLocalStorage.getObject('user').id;
+    const [data, setData] = useState([]);
+    const theme = useTheme();
+    const email = reactLocalStorage.getObject("user").id;
 
-  //call to get user's data for dashboard
-  const getData =  async () =>{
-    console.log('email ->',email);
-    try {
-      const response = await axios.post(`http://localhost:5001/getDashboard`, {
-        email,
-      });
-      console.log('dashboard response',response)
-      setData(response.data[0])
-      console.log('data',data)
-<<<<<<< HEAD
-      console.log('setting data')
-      setData( [
-        {
-        approved:77,
-        rejected:55,
-        pending: 60,
-        total: 100,
-      }
-    ])
+    //call to get user's data for dashboard
+    const getData = async () => {
+        console.log("email ->", email);
+        try {
+            const response = await axios.post(
+                `http://localhost:5001/getDashboard`,
+                {
+                    email,
+                }
+            );
+            console.log("dashboard response", response);
+            setData(response.data[0]);
+            console.log("data", data);
+            console.log("setting data");
+            setData([
+                {
+                    approved: 77,
+                    rejected: 55,
+                    pending: 60,
+                    total: 100,
+                },
+            ]);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+    return (
+        <>
+            <Box m="20px">
+                <title> Dashboard | Minimal UI </title>
 
-=======
-      
->>>>>>> d1bfcbd5cd27e462d0587fd4d1fbef7a1ca26f3d
-  }
-  catch(error){
-    console.log(error)
-  }
-}
-  useEffect(() => {
-    getData();
-  }, []);
-  return (
-    <>
-    <Box m="20px" >
-        <title> Dashboard | Minimal UI </title>
-      
-      <Container maxWidth="xl">
-      <Header title="Dashboard" subtitle="something here" />
-      <div className ="dashboard-bg">
-        <Grid container spacing={3} >
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={data['item1']} icon={'ant-design:android-filled'} />
-          </Grid>
+                <Container maxWidth="xl">
+                    <Header title="Dashboard" subtitle="something here" />
+                    <div className="dashboard-bg">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppWidgetSummary
+                                    title="Weekly Sales"
+                                    total={data["item1"]}
+                                    icon={"ant-design:android-filled"}
+                                />
+                            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={data['item2']} color="info" icon={'ic:baseline-account-balance-wallet'} />
-          </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppWidgetSummary
+                                    title="New Users"
+                                    total={data["item2"]}
+                                    color="info"
+                                    icon={"ic:baseline-account-balance-wallet"}
+                                />
+                            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={data['item3']} color="warning" icon={'ant-design:windows-filled'} />
-          </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppWidgetSummary
+                                    title="Item Orders"
+                                    total={data["item3"]}
+                                    color="warning"
+                                    icon={"ant-design:windows-filled"}
+                                />
+                            </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={data['item4']} color="error" icon={'ant-design:bug-filled'} />
-          </Grid>
+                            <Grid item xs={12} sm={6} md={3}>
+                                <AppWidgetSummary
+                                    title="Bug Reports"
+                                    total={data["item4"]}
+                                    color="error"
+                                    icon={"ant-design:bug-filled"}
+                                />
+                            </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            {/*<AppWebsiteVisits
+                            <Grid item xs={12} md={6} lg={8}>
+                                {/*<AppWebsiteVisits
               title="Website Visits"
               subheader="(+43%) than last year"
               chartLabels={[
@@ -146,10 +162,10 @@ export default function DashboardAppPage() {
                 theme.palette.error.main,
               ]}
             />*/}
-          </Grid>
+                            </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            {/*
+                            <Grid item xs={12} md={6} lg={8}>
+                                {/*
             <AppConversionRates
               title="Conversion Rates"
               subheader="(+43%) than last year"
@@ -211,10 +227,10 @@ export default function DashboardAppPage() {
               }))}
             />
             */}
-          </Grid>
+                            </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
-            {/*
+                            <Grid item xs={12} md={6} lg={4}>
+                                {/*
             <AppTrafficBySite
               title="Traffic by Site"
               list={[
@@ -241,26 +257,36 @@ export default function DashboardAppPage() {
               ]}
             />
             */}
-          </Grid>
+                            </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <AppTasks
-              title="Tasks"
-              list={[
-                { id: '1', label: 'Create FireStone Logo' },
-                { id: '2', label: 'Add SCSS and JS files if required' },
-                { id: '3', label: 'Stakeholder Meeting' },
-                { id: '4', label: 'Scoping & Estimations' },
-                { id: '5', label: 'Sprint Showcase' },
-              ]}
-            />
-          </Grid>
-        </Grid>
-        </div>
-      </Container>
-     
-      </Box>
-    </>
-    
-  );
+                            <Grid item xs={12} md={6} lg={8}>
+                                <AppTasks
+                                    title="Tasks"
+                                    list={[
+                                        {
+                                            id: "1",
+                                            label: "Create FireStone Logo",
+                                        },
+                                        {
+                                            id: "2",
+                                            label: "Add SCSS and JS files if required",
+                                        },
+                                        {
+                                            id: "3",
+                                            label: "Stakeholder Meeting",
+                                        },
+                                        {
+                                            id: "4",
+                                            label: "Scoping & Estimations",
+                                        },
+                                        { id: "5", label: "Sprint Showcase" },
+                                    ]}
+                                />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Container>
+            </Box>
+        </>
+    );
 }

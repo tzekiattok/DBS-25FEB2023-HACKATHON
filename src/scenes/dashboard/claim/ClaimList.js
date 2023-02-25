@@ -40,10 +40,24 @@ const ClaimList = () => {
       const response = await axios.post(`http://localhost:5001/getDashboard`, {
         email,
       });
-      console.log('dashboard response',response)
-      setData(response.data[0])
-      console.log('data',data)
-      
+      if (response.data !== []) {
+        for (const i in response.data) {
+          var type = response.data[i];
+          if (type['InsuranceType'] === "Personal Accident") {
+            data[0]["personalAccident"] = type['count']
+          }
+          else {
+            data[0][type['InsuranceType']] = type['count']
+          }
+        }
+        console.log('newdata', data[0]);
+      }
+      console.log('dashboard data', response)
+    }
+    catch (error) {
+      console.log(error)
+    }
+    setSummaryLoading(false)
   }
   catch(error){
     console.log(error)
@@ -75,45 +89,46 @@ const ClaimList = () => {
   return (
     <Box m="20px" className="chatbotBox">
       <Header title="Claims" subtitle="List of Claims" />
+      {!summaryLoading && (
+        <div className="dashboard-bg">
+          <Grid container spacing={3}>
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary
+                title="Personal Accident"
+                total={data[0].personalAccident}
+                icon={"ant-design:android-filled"}
+              />
+            </Grid>
 
-      <div className="dashboard-bg">
-        <Grid container spacing={3}>
-          <Grid item xs={6} sm={4} md={3}>
-            <AppWidgetSummary
-              title="Weekly Sales"
-              total={1}
-              icon={"ant-design:android-filled"}
-            />
-          </Grid>
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary
+                title="Car"
+                total={data[0].Car}
+                color="info"
+                icon={"ic:baseline-account-balance-wallet"}
+              />
+            </Grid>
 
-          <Grid item xs={6} sm={4} md={3}>
-            <AppWidgetSummary
-              title="New Users"
-              total={2}
-              color="info"
-              icon={"ic:baseline-account-balance-wallet"}
-            />
-          </Grid>
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary
+                title="Travel"
+                total={data[0].Travel}
+                color="warning"
+                icon={"ant-design:windows-filled"}
+              />
+            </Grid>
 
-          <Grid item xs={6} sm={4} md={3}>
-            <AppWidgetSummary
-              title="Item Orders"
-              total={3}
-              color="warning"
-              icon={"ant-design:windows-filled"}
-            />
+            <Grid item xs={6} sm={4} md={3}>
+              <AppWidgetSummary
+                title="Housing"
+                total={data[0].Housing}
+                color="error"
+                icon={"ant-design:bug-filled"}
+              />
+            </Grid>
           </Grid>
-
-          <Grid item xs={6} sm={4} md={3}>
-            <AppWidgetSummary
-              title="Bug Reports"
-              total={4}
-              color="error"
-              icon={"ant-design:bug-filled"}
-            />
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      )}
       <div className="columns mt-5 is-centered">
         {claims ? (
           <Box height={"600px"} width={"100%"}>

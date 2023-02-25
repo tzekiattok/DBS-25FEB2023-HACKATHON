@@ -30,16 +30,17 @@ export default function DashboardAppPage() {
   const [data,setData] =useState([])
   const theme = useTheme();
   const email = reactLocalStorage.getObject('user').id;
+
   //call to get user's data for dashboard
   const getData =  async () =>{
     console.log('email ->',email);
     try {
-      /*const response = await axios.post(`http://localhost:5001/getClaimsSummary`, {
-        id,
+      const response = await axios.post(`http://localhost:5001/getDashboard`, {
+        email,
       });
       console.log('dashboard response',response)
       setData(response.data[0])
-      console.log('data',data)*/
+      console.log('data',data)
       console.log('setting data')
       setData( [
         {

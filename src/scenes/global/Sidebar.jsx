@@ -198,13 +198,6 @@ const Sidebar = () => {
               setSelected={setSelected}
             /> */}
               <Item
-                title="Dashboard1"
-                to="/dashboard1"
-                icon={<AnalyticsIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
                 title="Policies"
                 to="/policy"
                 icon={<DocumentScannerIcon />}
@@ -212,23 +205,9 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
               <Item
-                title="Page2"
-                to="/page2"
-                icon={<AnalyticsIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
                 title="Page3"
                 to="/claim"
                 icon={<AnalyticsIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="List Users"
-                to="/policy"
-                icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />

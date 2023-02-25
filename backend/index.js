@@ -60,6 +60,67 @@ app.get("/getAccounts", (req, res) => {
     });
 });
 
+// Return list of policies based on employeeId
+// TO DO: INPUT THE EMPLOYEE ID GIVEN
+app.get("/getPolicies",(req,res)=>{
+    console.log('running query... getPolicies')
+    const employeeId = req.query.employeeId;
+    const query = `SELECT * FROM insurancepolicies WHERE EmployeeID = ${employeeId}`
+    db.query(query,(err, result)=>{
+        if (err) {
+            console.log(err);
+          } else {
+            console.log('results')
+            res.send(result);
+        }
+    })
+})
+
+// Return list of claim records based on insuranceId
+app.get("/getClaims",(req,res)=>{
+    console.log('running query... getClaims')
+    const insuranceId = req.body.insuranceId;
+    const query = `SELECT * FROM insuranceclaims WHERE InsuranceID = ${insuranceId}`
+    db.query(query,(err, result)=>{
+        if (err) {
+            console.log(err);
+          } else {
+            console.log('results')
+            res.send(result);
+        }
+    })
+})
+
+//Insert User
+app.post("/createClaim", (req, res) => {
+    const employeeId = req.body.employeeId;
+    const insuranceId = req.body.insuranceId;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const date = req.body.date;
+    const claimAmt = req.body.claimAmt;
+    const purpose = req.body.purpose;
+    const followUp = req.body.followUp;
+    const prevClaimId = req.body.prevClaimId;
+    const status = 'Pending' // everytime create new claim -> status is pending
+    const lastEditedClaimDate = new String(Date());
+    const query = `INSERT INTO insuranceclaims 
+    (employeeId, insuranceId, firstName, lastName, date, claimAmt, purpose, followUp, prevClaimId, status, lastEditedClaimDate) VALUES 
+    ('${employeeId}', '${insuranceId}', '${firstName}', '${lastName}', '${date}', '${claimAmt}', '${purpose}', '${followUp}', '${prevClaimId}', '${status}', '${lastEditedClaimDate}')`;
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(400);
+            res.send(err);
+        } else {
+            console.log("Claim created");
+            console.log("result", result);
+            res.status(200);
+            res.send(result);
+        }
+    });
+});
+
 //Authenticate User login
 app.post("/verifyAccount", (req, res) => {
     console.log("verifying account log in");
